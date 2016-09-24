@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket Test</title>
+    <script type="text/javascript" src="script/js/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="msg">
+        <button type="button" id="send">发送</button>
+    </div>
+    <p id="text"></p>
+</body>
+<script>
+    var socket = new WebSocket('ws://115.159.75.70:8080')
+    socket.onopen = function () {
+        socket.send('client login')
+    }
+    socket.onmessage = function (msg) {
+        $('#text').append(msg.data + '<br>')
+    }
+
+    $('#send').click(function () {
+        var msg = $('#msg').val()
+        $('#msg').val('')
+        socket.send(msg)
+    })
+</script>
+</html>
