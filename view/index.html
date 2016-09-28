@@ -26,5 +26,14 @@
         $('#msg').val('')
         socket.send(msg)
     })
+
+
+    var obj = {
+        type: 'login',
+        data: {
+            name: '林'
+        }
+    };
+    $('#text').append(JSON.stringify(obj));
 </script>
 </html>
