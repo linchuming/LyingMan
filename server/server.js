@@ -13,7 +13,7 @@ function socketVerify(info) {
     return false;
 }
 
-var controller = require('./models/controller');
+var controller = require('./app/controller');
 
 //接受消息
 wss.on('connection', function(client) {
