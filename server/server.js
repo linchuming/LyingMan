@@ -4,7 +4,13 @@ var WebSocketServer = require('ws').Server
         port: 8080,
         verifyClient: socketVerify});
 
+/**
+ * 验证socket来源
+ * @param info
+ * @returns {boolean}
+ */
 function socketVerify(info) {
+    return true; //暂时关闭验证
     var origin = info.origin.match(/^(:?.+\:\/\/)([^\/]+)/);
     // console.log(origin);
     if(origin.length >= 3 && origin[2] == host) {
@@ -13,9 +19,14 @@ function socketVerify(info) {
     return false;
 }
 
+/**
+ * 加载控制器
+ */
 var controller = require('./app/controller');
 
-//接受消息
+/**
+ * 接受消息
+ */
 wss.on('connection', function(client) {
     client.on('message', function(message) {
         console.log('received: %s', message);

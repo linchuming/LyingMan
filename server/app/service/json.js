@@ -1,5 +1,12 @@
 /**
- * Created by cmlin on 2016/9/28.
+ * JSON处理模块
+ */
+
+/**
+ * JSON编码
+ * @param type
+ * @param data
+ * @param msg
  */
 var json_encode = function(type, data, msg) {
     msg = msg || '';
@@ -11,6 +18,11 @@ var json_encode = function(type, data, msg) {
     return JSON.stringify(res);
 }
 
+/**
+ * JSON解码
+ * @param str
+ * @returns {boolean}
+ */
 var json_decode = function(str) {
     try {
         return JSON.parse(str);

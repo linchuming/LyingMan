@@ -1,8 +1,14 @@
 /**
- * Created by cmlin on 2016/9/28.
+ * 用户处理模块
  */
+
+//用户池
 var users = [];
+
 var u_id = 0;
+
+var json = require('./json');
+
 function randomString(len) {
     len = len || 32;
     var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
@@ -16,6 +22,13 @@ function randomString(len) {
 }
 
 module.exports = {
+
+    /**
+     * 往用户池添加用户
+     * @param name
+     * @param client
+     * @returns {{id: number, client: *, name: *, room: number, data: {}, token}}
+     */
     addUser: function (name, client) {
         var obj = {
             id: u_id,
@@ -28,5 +41,39 @@ module.exports = {
         users[u_id] = obj;
         u_id++;
         return obj;
+    },
+
+    /**
+     * 根据id获取用户对象
+     * @param id
+     * @returns {*}
+     */
+    getUser: function(id) {
+        return users[id];
+    },
+
+    /**
+     * 设置用户的client对象
+     * @param id
+     * @param client
+     * @returns {boolean}
+     */
+    setUserClient: function(id, client) {
+        if(user[id] != undefined) {
+            user[id].client = client;
+        }
+        return false;
+    },
+
+    /**
+     * 向用户id发送json信息
+     * @param id
+     * @param type
+     * @param data
+     */
+    sendJson: function(id, type, data) {
+        var str = json.json_encode(type, data);
+        users[id].send(str);
     }
+
 };

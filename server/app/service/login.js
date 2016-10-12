@@ -1,5 +1,5 @@
 /**
- * Created by cmlin on 2016/9/28.
+ * 处理用户登陆逻辑
  */
 
 var user = require('./user');
