@@ -44,7 +44,7 @@ module.exports = {
     },
 
     /**
-     * 根据id获取用户对象
+     * 根据id获取用户对象（注意这个对象是引用的对象，非拷贝）
      * @param id
      * @returns {*}
      */
@@ -59,10 +59,37 @@ module.exports = {
      * @returns {boolean}
      */
     setUserClient: function(id, client) {
-        if(user[id] != undefined) {
-            user[id].client = client;
+        if(users[id] != undefined) {
+            users[id].client = client;
         }
         return false;
+    },
+
+    /**
+     * 设置用户的房间号信息
+     * @param id
+     * @param number
+     */
+    setUserRoomId: function(id, number) {
+        users[id].room = number;
+    },
+
+    /**
+     * 获取用户的房间号
+     * @param id
+     * @returns {number|*}
+     */
+    getUserRoomId: function(id) {
+        return users[id].room;
+    },
+
+    /**
+     * 获取用户昵称
+     * @param id
+     * @returns {*}
+     */
+    getUserName: function(id) {
+        return users[id].name;
     },
 
     /**
@@ -73,7 +100,8 @@ module.exports = {
      */
     sendJson: function(id, type, data) {
         var str = json.json_encode(type, data);
-        users[id].send(str);
+        users[id].client.send(str);
+        console.log('send: ' + id + ', ' + str);
     }
 
 };

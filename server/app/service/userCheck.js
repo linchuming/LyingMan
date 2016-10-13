@@ -9,6 +9,7 @@ module.exports = {
         if(data.id == undefined || data.token == undefined) {
             throw new Error('id or token is not in data');
         }
+        //console.log(user);
         var usr = user.getUser(data.id);
         if(usr == undefined) {
             throw new Error('user not found');

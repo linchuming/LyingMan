@@ -4,7 +4,7 @@
  */
 
 var json = require('./service/json');
-var midware = require('./service/userCheck');
+var middleware = require('./service/userCheck');
 
 module.exports = {
     init: function(message, client) {
@@ -17,7 +17,8 @@ module.exports = {
                         action.do(client, msg.data);
                         break;
                     default:
-                        midware.userValidCheck(client, msg.data);
+                        middleware.userValidCheck(client, msg.data);
+                        console.log('token is valid');
                         var action = require('./service/' + msg.type);
                         action.do(client, msg.data);
                 }
