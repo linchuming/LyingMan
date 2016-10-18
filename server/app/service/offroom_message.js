@@ -1,9 +1,6 @@
-/**
- * Created by cmlin on 2016/10/13.
- */
 
-var user = require('./../models/user');
-var offroom = require('./../models/offroom');
+var user = require('../models/user');
+var offroom = require('../models/offroom');
 
 module.exports = {
     do: function(client, data) {

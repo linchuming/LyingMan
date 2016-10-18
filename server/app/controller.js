@@ -23,7 +23,7 @@ module.exports = {
                         action.do(client, msg.data);
                 }
             }catch (e) {
-                console.log(e);
+                console.log(e.stack);
             }
         }
     }

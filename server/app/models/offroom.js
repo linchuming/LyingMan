@@ -4,7 +4,7 @@
 
 var rooms = [];
 
-var json = require('./../utils/json');
+var json = require('../utils/json');
 var user = require('./user');
 
 function init_room(room_number) {
