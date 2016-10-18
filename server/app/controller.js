@@ -3,8 +3,8 @@
  * 所有发送过来的请求都先经过这层处理
  */
 
-var json = require('./service/json');
-var middleware = require('./service/userCheck');
+var json = require('./utils/json');
+var middleware = require('./models/userCheck');
 
 module.exports = {
     init: function(message, client) {
@@ -18,7 +18,7 @@ module.exports = {
                         break;
                     default:
                         middleware.userValidCheck(client, msg.data);
-                        console.log('token is valid');
+                        // console.log('token is valid');
                         var action = require('./service/' + msg.type);
                         action.do(client, msg.data);
                 }

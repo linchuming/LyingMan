@@ -2,8 +2,8 @@
  * Created by cmlin on 2016/10/13.
  */
 
-var user = require('./user');
-var offroom = require('./offroom');
+var user = require('./../models/user');
+var offroom = require('./../models/offroom');
 
 module.exports = {
     do: function(client, data) {

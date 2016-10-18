@@ -91,7 +91,7 @@
     var room = $.cookie('room');
     var id = $.cookie('id');
     var token = $.cookie('token');
-    var socket = new WebSocket('ws://lm.cmlin.me:8080');
+    var socket = new WebSocket('ws://localhost:8080');
     socket.onopen = function () {
         //登录聊天室
         var obj = {

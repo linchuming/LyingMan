@@ -27,9 +27,9 @@
     </div>
 </body>
 <script>
-    var socket = new WebSocket('ws://lm.cmlin.me:8080');
+    var socket = new WebSocket('ws://localhost:8080');
     socket.onopen = function () {
-        socket.send('client login')
+//        socket.send('client login')
     };
     /**
      * 接受消息并处理
