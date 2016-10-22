@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" ng-show="isGod" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -37,7 +37,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">开始游戏</a></li>
+                <li ><a ng-click='startGame()'>开始游戏</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -54,7 +54,8 @@
             <dt>系统消息</dt>
             <dd>
             您是本间房主/上帝，当人数已满,请点击
-            <div ng-click='startGame()' class='link'>开始游戏</div>
+            <!-- <div ng-click='startGame()' class='link'>开始游戏</div> -->
+            右上角的“开始游戏”。
           </dd>
           </dl>
             <!-- <dl class="me m1">
