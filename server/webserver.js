@@ -3,9 +3,9 @@ var app = express();
 
 app.use(express.static('../web'));
 
-app.get('*', function(req, res) {
-	res.sendfile('../web/index.html');
-});
+// app.get('*', function(req, res) {
+// 	res.sendfile('../web/index.html');
+// });
 
 
 module.exports = {

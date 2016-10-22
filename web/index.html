@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="lyingman">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Lying Man</title>
     <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="vendor/css/signin.css">
     <script type="text/javascript" src="vendor/js/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="vendor/js/jquery.cookie.js"></script>
@@ -12,9 +12,13 @@
     <script type="text/javascript" src="vendor/js/angular-route.min.js"></script>
 	  <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="app/component/loginController.js"></script>
+    <script type="text/javascript" src="app/component/joinroomController.js"></script>
+    <script type="text/javascript" src="app/component/offlineroomController.js"></script>
     <script type="text/javascript" src="app.route.js"></script>
+    <script type="text/javascript" src="app/service/webSocketService.js"></script>
+    <script type="text/javascript" src="app/model/userInfoModel.js"></script>
 </head>
-<body ng-app="lyingman">
+<body>
 	<div ng-view></div>
 </body>
 </html>

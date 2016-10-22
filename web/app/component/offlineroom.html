@@ -1,0 +1,57 @@
+
+    <style type="text/css">
+        *{ margin:0; padding:0; border:0; outline:0; font-family:"Microsoft YaHei";}
+        .m{ overflow:auto; height: 550px; padding: 5px; position: relative}
+        .m1 { position:relative;}
+        .m1:after,.m1:before { clear:both; content:""; display:table; height:0; margin-bottom:20px;}
+        .m1 dt { width:60px; height:30px; background:#CCC; display:inline-block; text-align:center; line-height:30px;margin-top:25px }
+        .m1 dd{max-width:60%; border:1px solid #ccc; border-radius:3px; padding:5px ;  background:#ccc; box-sizing:border-box; position:relative;}
+        .m1 dd:before{ position:absolute; bottom:5px;  content:""; border-width:10px; border-style:solid; }
+        .m1.he dd:before,.m1.vhe dd:before{ left:-20px; border-color:transparent #ccc  transparent transparent;   }
+        .m1.me dd:before,.m1.vme dd:before{ right:-20px; border-color:transparent  transparent transparent  #ccc; }
+        .m1.he dt { float:left; }
+        .m1.he dd{ margin-left:20px; margin-top:20px ;float:left; }
+        .m1.me dt { float:right; margin-left:20px;}
+        .m1.me dd { float:right; margin-top:20px;}
+        body {
+            padding-top: 40px;
+            padding-bottom:100px;
+        }
+      </style>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand">房间号:{{roomnumber}} (在线人数:{{onlinenumber}})</div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">开始游戏</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+    <div class="container-fluid">
+        <div class="container">
+            <!-- <dl class="me m1">
+            <dt>123</dt>
+            <dd>我是测试我是测试试我是测试我是测试试我是测试我是测试试</dd>
+            </dl>
+            <dl class="he m1">
+            <dt>哥哥</dt>
+            <dd>我是测试我是测试试啊hello world aaaa aaaa aaaa a a a a a  aaa</dd>
+            </dl> -->
+            <div ng-bind-html="trustedCurrentConversation"></div>
+        </div>
+    </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <textarea class="form-control" ng-model="myMessage"></textarea>
+    <div class="btn btn-primary btn-block" ng-click="sendMessage()">发送</div>
+</nav>
