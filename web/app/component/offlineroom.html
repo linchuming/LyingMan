@@ -17,6 +17,11 @@
             padding-top: 40px;
             padding-bottom:100px;
         }
+        .link {
+          color:blue;
+          display: inline-block;
+          cursor: pointer;
+        }
       </style>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,6 +44,13 @@
 </nav>
     <div class="container-fluid">
         <div class="container">
+          <dl class="he m1" ng-show="isGod">
+            <dt>系统消息</dt>
+            <dd>
+            您是本间房主/上帝，当人数已满,请点击
+            <div ng-click='startGame()' class='link'>开始游戏</div>
+          </dd>
+          </dl>
             <!-- <dl class="me m1">
             <dt>123</dt>
             <dd>我是测试我是测试试我是测试我是测试试我是测试我是测试试</dd>
