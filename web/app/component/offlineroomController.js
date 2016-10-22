@@ -6,6 +6,8 @@
     $scope.onlinenumber = 1;
     $scope.myMessage = '';
     $scope.isGod = false;
+    var role = ['上帝', '狼人', '平民', '女巫', '预言家', '丘比特'];
+
     var initializeRoom = function() {
       var obj = {
         type: 'join_offroom',
@@ -52,6 +54,15 @@
                   messageHtml(-1, "系统消息","您的身份是丘比特。");
                 }
               }
+              break;
+            case 'offroom_start_succ':
+                var users = data.users;
+                var str = '';
+                for(var k in users) {
+                  str += '<br>' + users[k].name + ':' + role[users[k].role_id];
+                }
+                messageHtml(-1, "系统消息", "游戏开始，本局身份分布为：" + str);
+              break;
             default:
 
           }
