@@ -40,7 +40,10 @@ function add_id_to_room(id, room_number) {
 function send_to_room(room_id, type, data) {
     var ids = rooms[room_id].userId;
     for(var k in ids) {
-        user.sendJson(ids[k], type, data);
+        var status = user.sendJson(ids[k], type, data);
+        if(!status) {
+            remove_user(ids[k], room_id);
+        }
     }
 }
 

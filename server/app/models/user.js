@@ -41,10 +41,14 @@ function send(id, str) {
         users[id].client.send(str);
     }catch (e) {
         //发送数据失败，说明用户已离开
-        users[id].online = false;
+        deleteUser(id);
         return false;
     }
     return true;
+}
+
+function deleteUser(id) {
+    users[id].online = false;
 }
 
 module.exports = {
