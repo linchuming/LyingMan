@@ -130,8 +130,22 @@ module.exports = {
         return rooms[room_id].size;
     },
 
+    /**
+     * 设置角色身份
+     * @param user_id
+     * @param role_id
+     */
     setUserRole: function (user_id, role_id) {
         user.sendJson(user_id, 'role', {role_id: role_id});
+    },
+
+    /**
+     * 获取房间的用户id
+     * @param room_id
+     * @returns {Array.<*>}
+     */
+    getRoomUserId: function (room_id) {
+        return rooms[room_id].userId.concat();
     }
 
 
