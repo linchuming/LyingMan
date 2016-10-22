@@ -1,3 +1,3 @@
 (function() {
-	angular.module("LyingMan", ["ui.router"]);
+	angular.module("lyingman", ["ui.router","ngRoute"]);
 })()
