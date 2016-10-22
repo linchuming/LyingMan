@@ -35,7 +35,7 @@
             </button>
             <div class="navbar-brand">房间号:{{roomnumber}} (在线人数:{{onlinenumber}})</div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse" ng-show="isGod">
             <ul class="nav navbar-nav">
                 <li ><a ng-click='startGame()'>开始游戏</a></li>
             </ul>
