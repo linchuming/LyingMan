@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" ng-show="isGod" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" ng-if="isGod" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -35,9 +35,9 @@
             </button>
             <div class="navbar-brand">房间号:{{roomnumber}} (在线人数:{{onlinenumber}})</div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse" ng-show="isGod">
+        <div id="navbar" class="navbar-collapse collapse" ng-if="isGod">
             <ul class="nav navbar-nav">
-                <li ><a ng-click='startGame()'>开始游戏</a></li>
+                <li ><a ng-click='startGame()' ng-show="isGod">开始游戏</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
