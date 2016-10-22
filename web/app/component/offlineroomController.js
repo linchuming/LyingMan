@@ -84,16 +84,18 @@
 
 
     var sendMessage = function() {
-      var obj = {
-        type: 'offroom_message',
-        data: {
-          message: $scope.myMessage,
-          id: userInfoModel.id,
-          token: userInfoModel.token
-        }
-      };
-      webSocketService.send(JSON.stringify(obj));
-      $scope.myMessage = '';
+      if ($scope.myMessage) {
+        var obj = {
+          type: 'offroom_message',
+          data: {
+            message: $scope.myMessage,
+            id: userInfoModel.id,
+            token: userInfoModel.token
+          }
+        };
+        webSocketService.send(JSON.stringify(obj));
+        $scope.myMessage = '';
+      }
     };
     $scope.startGame = startGame;
     $scope.sendMessage = sendMessage;
