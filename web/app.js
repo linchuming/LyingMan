@@ -1,3 +1,3 @@
 (function() {
-	angular.module("lyingman", ["ngRoute"]);
+	angular.module("lyingman", ["ngRoute",'ngSanitize']);
 })()

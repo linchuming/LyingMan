@@ -11,6 +11,7 @@
       $scope.currentConversation = $scope.currentConversation + phrase;
       console.log($scope.currentConversation);
       $scope.trustedCurrentConversation = $sce.trustAsHtml($scope.currentConversation);
+      $scope.$apply();
     }
     var obj = {
       type: 'join_offroom',
@@ -30,6 +31,10 @@
             //console.log(data);
             messageHtml(data.id, data.name, data.message);
             break;
+          case 'offroom_number':
+            $scope.onlinenumber = data.number;
+            $scope.$apply();
+            break;
           default:
 
         }
@@ -45,6 +50,7 @@
         }
       };
       webSocketService.send(JSON.stringify(obj));
+      $scope.myMessage = '';
     };
     $scope.sendMessage = sendMessage;
 
