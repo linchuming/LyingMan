@@ -36,7 +36,21 @@
                 $scope.$apply();
               }
               else {
-
+                if(data.role_id == '1') {
+                  messageHtml(-1, "系统消息","您的身份是狼人。");
+                }
+                if(data.role_id == '2') {
+                  messageHtml(-1, "系统消息","您的身份是平民。");
+                }
+                if(data.role_id == '3') {
+                  messageHtml(-1, "系统消息","您的身份是女巫。");
+                }
+                if(data.role_id == '4') {
+                  messageHtml(-1, "系统消息","您的身份是预言家。");
+                }
+                if(data.role_id == '5') {
+                  messageHtml(-1, "系统消息","您的身份是丘比特。");
+                }
               }
             default:
 
