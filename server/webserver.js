@@ -4,7 +4,7 @@ var app = express();
 app.use(express.static('../web'));
 
 app.get('*', function(req, res) {
-	res.sendfile('../web/index.html'); 
+	res.sendfile('../web/index.html');
 });
 
 
