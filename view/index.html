@@ -38,12 +38,12 @@
     socket.onmessage = function (msg) {
         //$('#text').append(msg.data + '<br>')
         //console.log(msg);
+        console.log(msg.data);
         var obj = JSON.parse(msg.data);
         if(obj.type != undefined) {
             switch (obj.type) {
                 case 'login_succ':
                         var data = obj.data;
-                        console.log(data);
                         $.cookie('name', data.name);
                         $.cookie('id', data.id);
                         $.cookie('token', data.token);
