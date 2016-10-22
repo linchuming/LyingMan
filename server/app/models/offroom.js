@@ -39,11 +39,20 @@ function add_id_to_room(id, room_number) {
 
 function send_to_room(room_id, type, data) {
     var ids = rooms[room_id].userId;
+    var isUpdate = false;
+    var remove_arr = [];
     for(var k in ids) {
         var status = user.sendJson(ids[k], type, data);
         if(!status) {
-            remove_user(ids[k], room_id);
+            isUpdate = true;
+            remove_arr.push(ids[k]);
         }
+    }
+    for(var k in remove_arr) {
+        remove_user(remove_arr[k], room_id);
+    }
+    if(isUpdate) {
+        sendRoomNumber(room_id);
     }
 }
 
@@ -53,8 +62,16 @@ function remove_user(user_id, room_id) {
         if(ids[k] == user_id) {
             rooms[room_id].userId.splice(k, 1);
             rooms[room_id].size--;
+            // console.log(rooms[room_id].size);
         }
     }
+}
+
+function sendRoomNumber(room_id) {
+    var obj = {
+        number: rooms[room_id].size
+    };
+    send_to_room(room_id, 'offroom_number', obj);
 }
 
 module.exports = {
@@ -101,10 +118,7 @@ module.exports = {
      * @param room_id
      */
     sendRoomNumber: function (room_id) {
-        var obj = {
-            number: rooms[room_id].size
-        };
-        send_to_room(room_id, 'offroom_number', obj);
+        return sendRoomNumber(room_id);
     },
 
     /**

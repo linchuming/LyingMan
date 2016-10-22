@@ -34,11 +34,11 @@ function randomString(len) {
 function send(id, str) {
     if(!users[id].online) {
         //用户不在线
-        return false;
+        return true;
     }
     try {
-        console.log('send: ' + id + ', ' + str);
         users[id].client.send(str);
+        console.log('send: ' + id + ', ' + str);
     }catch (e) {
         //发送数据失败，说明用户已离开
         deleteUser(id);

@@ -18,16 +18,16 @@ module.exports = {
 
         offroom.sendRoomNumber(room_id);
 
-        var obj = {
-            id: -1,
-            name: '系统消息',
-            message: '欢迎进入聊天室: ' + room_id
-        };
-
-        client.send(json.json_encode(
-            'text_message',
-            obj
-        ));
+        // var obj = {
+        //     id: -1,
+        //     name: '系统消息',
+        //     message: '欢迎进入聊天室: ' + room_id
+        // };
+        //
+        // client.send(json.json_encode(
+        //     'text_message',
+        //     obj
+        // ));
 
         var online_number = offroom.getRoomNumber(room_id);
         if(online_number == 1) {
