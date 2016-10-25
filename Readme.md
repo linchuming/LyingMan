@@ -10,3 +10,4 @@
 - [NodeJS](https://nodejs.org/dist/latest-v4.x/docs/api/)
 - [ws](https://github.com/websockets/ws)
 - [express](http://www.expressjs.com.cn/)
+- [AngularJS](https://docs.angularjs.org/api)
