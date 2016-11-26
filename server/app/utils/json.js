@@ -16,7 +16,7 @@ var json_encode = function(type, data, msg) {
         msg: msg
     };
     return JSON.stringify(res);
-}
+};
 
 /**
  * JSON解码
@@ -29,7 +29,7 @@ var json_decode = function(str) {
     }catch (e) {
         return false;
     }
-}
+};
 
 module.exports.json_encode = json_encode;
 module.exports.json_decode = json_decode;

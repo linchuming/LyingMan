@@ -1,5 +1,5 @@
 /**
- * Created by cmlin on 2016/10/13.
+ * 线下版房间模块
  */
 
 var rooms = [];

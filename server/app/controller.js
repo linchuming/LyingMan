@@ -17,6 +17,7 @@ module.exports = {
                         action.do(client, msg.data);
                         break;
                     default:
+                        //检查id与token是否合法
                         middleware.userValidCheck(client, msg.data);
                         // console.log('token is valid');
                         var action = require('./service/' + msg.type);

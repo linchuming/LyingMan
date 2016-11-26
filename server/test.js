@@ -10,16 +10,29 @@
 // var u2 = require('./models/user');
 // console.log(u2.addUser('aaa', 2));
 
-var a = [];
-a[0] = 0;
-a[100] = 1;
+// var a = [];
+// a[0] = 0;
+// a[100] = 1;
+//
+// var b = a;
+// b[0] = 1;
+// b[2] = {
+//     name: '123'
+// };
+// console.log(a[2]);
+// var t = b[2];
+// t.name = '321';
+// console.log(a[2]);
 
-var b = a;
-b[0] = 1;
-b[2] = {
-    name: '123'
+var count = 1;
+var func = function add() {
+    count++;
+    console.log(count);
+    setTimeout(t, 1000);
 };
-console.log(a[2]);
-var t = b[2];
-t.name = '321';
-console.log(a[2]);
+
+var t = function () {
+  console.log("hello");
+};
+
+setTimeout(func, 1000);
