@@ -15,9 +15,9 @@ function room_object() {
     var userId = [];
     var master = -1;
     var size = 0;
-    this.getUserid = function() {return userId;};
-    this.getMaster = function() {return master;};
-    this.getSize = function() {return size;};
+    this.getUserid = function () {return userId;};
+    this.getMaster = function () {return master;};
+    this.getSize = function () {return size;};
     /**
      * 房间添加用户
      * @param user_id
@@ -35,7 +35,8 @@ function room_object() {
      * @param type
      * @param data
      */
-    this.send_all = function (type, data) {
+    this.send_all = send_all;
+    function send_all(type, data) {
         for(var k in userId) {
             var status = user.sendJson(userId[k], type, data);
             if(!status) {
@@ -52,7 +53,8 @@ function room_object() {
      * 记录当前阶段名
      * @type {string}
      */
-    this.period = '';
+    var period = '';
+    this.getPeriod = function () {return period;};
 
     //每个阶段的等待时间(s)
     var guard_time = 10;
@@ -61,21 +63,26 @@ function room_object() {
     var witch_poison_time = 10;
     var prophet_time = 10;
 
-    //每个阶段最终被锁定的人
-    this.guard_target = -1;
-    this.werewolf_target = -1;
-    this.witch_rescue_target = -1;
-    this.witch_poison_target = -1;
-    this.prophet_target = -1;
+    var second = 200;
 
-    this.rescue_chosen = false;
-    this.poison_chosen = false;
+    //每个阶段最终被锁定的人
+    var target = {
+        guard_target: -1,
+        werewolf_target: -1,
+        witch_rescue_target: -1,
+        witch_poison_target: -1,
+        prophet_target: -1,
+        rescue_chosen: false,
+        poison_chosen: false,
+        wolfchoose: []
+    };
+    this.target = target; //使得外面对象可以访问target
 
     function get_dark(is_dark) {
         var data = {
             is_sky_dark: is_dark
         };
-        this.send_all('get_dark', data);
+        send_all('get_dark', data);
         if(is_dark) {
             //天黑后进入守卫阶段
             start_guard(guard_time);
@@ -83,16 +90,16 @@ function room_object() {
             //天亮后，进行死亡人数统计与发布
             var id1 = -1;
             var id2 = -1;
-            if(this.werewolf_target == this.guard_target || this.werewolf_target == this.witch_rescue_target) {
+            if(target.werewolf_target == target.guard_target || target.werewolf_target == target.witch_rescue_target) {
                 id1 = -1;
             } else {
-                id1 = this.werewolf_target;
+                id1 = target.werewolf_target;
             }
-            if(this.witch_poison_target >= 0) {
+            if(target.witch_poison_target >= 0) {
                 if(id1 == -1) {
-                    id1 = this.witch_poison_target;
+                    id1 = target.witch_poison_target;
                 } else {
-                    id2 = this.witch_poison_target;
+                    id2 = target.witch_poison_target;
                 }
             }
             if(id1 >= 0) {
@@ -107,7 +114,7 @@ function room_object() {
                 id1: id1,
                 id2: id2
             };
-            this.send_all('user_dead', data);
+            send_all('user_dead', data);
             
             //TODO: 天亮后要做的事情，交给老浴霸啦
         }
@@ -118,14 +125,14 @@ function room_object() {
             period: period,
             time: time
         };
-        this.send_all('announce_period_started', data);
+        send_all('announce_period_started', data);
     }
 
     function start_guard(wait_time) {
-        this.period = 'guard';
+        period = 'guard';
         send_period('guard', wait_time);
-        this.guard_target = -1;
-        setTimeout(end_guard, wait_time * 1000);
+        target.guard_target = -1;
+        setTimeout(end_guard, wait_time * second);
     }
 
     function end_guard() {
@@ -133,20 +140,19 @@ function room_object() {
         start_werewolf(werewolf_time);
     }
 
-    this.wolfchoose = [];
     function start_werewolf(wait_time) {
-        this.period = 'werewolf';
-        this.werewolf_target = -1;
-        this.wolfchoose = [];
+        period = 'werewolf';
+        target.werewolf_target = -1;
+        target.wolfchoose = [];
         send_period('werewolf', wait_time);
-        setTimeout(end_werewolf, wait_time * 1000);
+        setTimeout(end_werewolf, wait_time * second);
     }
 
     function end_werewolf() {
         //先统计出最终被狼人杀的user_id
         var vote = [];
-        for(var k in this.wolfchoose) {
-            var target_id = this.wolfchoose[k];
+        for(var k in target.wolfchoose) {
+            var target_id = target.wolfchoose[k];
             if(vote[target_id] == undefined) {
                 vote[target_id] = 1;
             } else {
@@ -157,13 +163,14 @@ function room_object() {
         for(var k in vote) {
             if(vote[k] > maxn) {
                 maxn = vote[k];
-                this.werewolf_target = k;
+                target.werewolf_target = k;
             }
         }
         //向所有狼人发送他们最终被决定的人
         var data = {
-            id: this.werewolf_target
+            id: target.werewolf_target
         };
+        console.log('werewolf_target:', target.werewolf_target);
         for(var k in userId) {
             var userData = user.getUserData(userId[k]);
             if(userData.role == 2 && userData.isDead == false) {
@@ -175,12 +182,12 @@ function room_object() {
     }
 
     function start_witch_rescue(wait_time) {
-        this.period = 'witch_rescue';
-        this.rescue_chosen = false;
+        period = 'witch_rescue';
+        target.rescue_chosen = false;
         send_period('witch_rescue', wait_time);
         //给女巫发送要救的人的user_id
         var data = {
-            id: this.werewolf_target
+            id: target.werewolf_target
         };
         for(var k in userId) {
             var userData = user.getUserData(userId[k]);
@@ -188,13 +195,13 @@ function room_object() {
                 user.sendJson(userId[k], 'user_is_locked', data);
             }
         }
-        setTimeout(end_witch_rescue, wait_time * 1000);
+        setTimeout(end_witch_rescue, wait_time * second);
     }
 
     function end_witch_rescue() {
         //确认最终女巫救的人
-        if (this.rescue_chosen) {
-            this.witch_rescue_target = this.werewolf_target;
+        if (target.rescue_chosen) {
+            target.witch_rescue_target = target.werewolf_target;
             //女巫不得再使用解药
             for(var k in userId) {
                 var userData = user.getUserData(userId[k]);
@@ -203,38 +210,38 @@ function room_object() {
                 }
             }
         } else {
-            this.witch_rescue_target = -1;
+            target.witch_rescue_target = -1;
         }
         //进入女巫毒人阶段
         start_witch_poison(witch_poison_time);
     }
 
     function start_witch_poison(wait_time) {
-        this.period = 'witch_poison';
-        this.poison_chosen = false;
+        period = 'witch_poison';
+        target.poison_chosen = false;
         send_period('witch_poison', wait_time);
-        setTimeout(end_witch_poison, wait_time * 1000);
+        setTimeout(end_witch_poison, wait_time * second);
     }
 
     function end_witch_poison() {
         //确认最终女巫毒的人
-        if(this.poison_chosen == false) {
-            this.witch_poison_target = -1;
+        if(target.poison_chosen == false) {
+            target.witch_poison_target = -1;
         }
         //进入预言家阶段
         start_prophet(prophet_time);
     }
 
     function start_prophet(wait_time) {
-        this.period = 'prophet';
-        this.prophet_target = userId[0]; //如果预言家不指定任何人，就查第一个
+        period = 'prophet';
+        target.prophet_target = userId[0]; //如果预言家不指定任何人，就查第一个
         send_period('prophet', wait_time);
-        setTimeout(end_prophet, wait_time * 1000);
+        setTimeout(end_prophet, wait_time * second);
     }
 
     function end_prophet() {
         //给预言家发送是否为好人
-        var targetData = user.getUserData(prophet_target);
+        var targetData = user.getUserData(target.prophet_target);
         var is_goodman = true;
         if(targetData.role == 2) {
             //如果预言家指定的角色是狼人，则为坏人
@@ -331,35 +338,35 @@ module.exports = {
     },
 
     getRoomPeriod: function (room_id) {
-        return rooms[room_id].period;
+        return rooms[room_id].getPeriod();
     },
 
     setGuardTarget: function (room_id, target_id) {
-        rooms[room_id].guard_target = target_id;
+        rooms[room_id].target.guard_target = target_id;
     },
 
     setWolfTarget: function (room_id, user_id, target_id) {
-        rooms[room_id].wolfchoose[user_id] = target_id;
+        rooms[room_id].target.wolfchoose[user_id] = target_id;
     },
 
     getWolfTarget: function (room_id) {
-        return rooms[room_id].wolfchoose;
+        return rooms[room_id].target.wolfchoose;
     },
 
     setWitchRescueChosen: function (room_id, is_chosen) {
-        rooms[room_id].rescue_chosen = is_chosen;
+        rooms[room_id].target.rescue_chosen = is_chosen;
     },
 
     setWitchPoisonChosen: function (room_id, is_chosen) {
-        rooms[room_id].poison_chosen = is_chosen;
+        rooms[room_id].target.poison_chosen = is_chosen;
     },
 
     setWitchPoisonTarget: function (room_id, target_id) {
-        rooms[room_id].witch_poison_target = target_id;
+        rooms[room_id].target.witch_poison_target = target_id;
     },
 
     setProphetTarget: function (room_id, target_id) {
-        rooms[room_id].prophet_target = target_id;
+        rooms[room_id].target.prophet_target = target_id;
     }
 
 };

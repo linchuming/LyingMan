@@ -51,11 +51,24 @@
 //     console.log(t[1]+1);
 // }
 
-var user = require('./app/models/user');
-user.addUser('lcm', {});
-var userObj = user.getUserData(0);
-userObj.isDead = false;
-console.log(user.getUserData(0));
-var room_id = user.getUserRoomId(0);
-room_id = 1;
-console.log(user.getUserRoomId(0));
+var name = '321';
+function test() {
+    var name = '123';
+    var obj = {
+        name: '123'
+    };
+    this.obj = obj;
+    function foo() {
+        console.log(obj.name);
+    }
+    function run() {
+        foo();
+    }
+    this.run = function () {
+        foo();
+    };
+}
+
+var f = new test;
+f.obj.name = '1';
+f.run();
