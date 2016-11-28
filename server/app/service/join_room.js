@@ -16,6 +16,10 @@ module.exports = {
         user.setUserRoomId(user_id, room_id);
         user.setUserOnline(user_id, true);
         room.userJoin(user_id, room_id);
+
+        if(room.getRoomSize(room_id) == 9) {
+            room.prepareGame(room_id);
+        }
     }
 
 };

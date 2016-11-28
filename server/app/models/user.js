@@ -65,7 +65,7 @@ module.exports = {
             client: client,
             name: name,
             room: -1,
-            data: {},
+            data: {}, //游戏数据
             token: randomString(16),
             online: true    //是否在线
         };
@@ -81,7 +81,16 @@ module.exports = {
      * @returns {*}
      */
     getUser: function(id) {
+        //返回的是用户对象的引用
         return users[id];
+    },
+
+    /**
+     * 返回用户游戏数据的对象引用
+     * @param id
+     */
+    getUserData: function (id) {
+        return users[id].data;
     },
 
     /**
