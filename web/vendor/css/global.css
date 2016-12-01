@@ -1,0 +1,44 @@
+@media screen and (orientation: portrait) {
+	html {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	body {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	#screen {
+		position: absolute;
+		background-color: white;
+	}
+}
+
+@media screen and (orientation: landscape) {
+	html {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	body {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	#screen {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: white;
+	}
+}
+#screen p {
+	margin: auto;
+	margin-top: 20px;
+	text-align: center;
+}
