@@ -1,11 +1,18 @@
+<link rel="stylesheet" href="vendor/css/login.css">
 <link rel="stylesheet" href="vendor/css/global.css">
 <script type="text/javascript" src="vendor/js/global.js"></script>
 
-<div id="screen">
-	<p>hello</p>
+<div id="screen" class="login-screen">
+	<img class="login-background" src="vendor/img/login/background.png" />
+	<div class="head-lying"></div>
+	<div class="head-man"></div>
+	
 	<div class="form-signin">
-		<h2 class="form-signin-heading">请先登录</h2>
-		<input type="text" class="form-control" ng-model="name" placeholder="昵称" required autofocus>
-		<button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signIn()">Sign in</button>
+		<form>
+			<h2 class="form-signin-title">登录</h2>
+			<input type="text" class="form-signin-input" placeholder="请输入昵称" required autofocus>
+			<button class="form-signin-button form-signin-button-left">在线游戏</button>
+			<button class="form-signin-button form-signin-button-right">离线游戏</button>
+		</form>
 	</div>
 </div>

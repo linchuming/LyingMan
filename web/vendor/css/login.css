@@ -1,0 +1,83 @@
+.login-screen {
+	background-color: #1a2f50 !important;
+	text-align: center;
+}
+.login-background {
+	position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 100%;
+	z-index: -1;
+}
+.head-lying {
+	background-image: url(../img/login/head_lying.png);
+	background-size: 100% 100%;
+	position: fixed;
+	left: 25%;
+	top: 5%;
+	width: 28%;
+	height: 22%;
+}
+.head-man {
+	background-image: url(../img/login/head_man.png);
+	background-size: 100% 100%;
+	position: fixed;
+	left: 54%;
+	top: 26%;
+	width: 25%;
+	height: 15%;
+}
+.form-signin {
+	border: solid 2px #9e9e9e;
+	-moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+	position: absolute;
+	background-color: rgba(158,158,158,0.3);
+	top: 50%;
+	left: 23%;
+	width: 53%;
+	height: 41%;
+}
+.form-signin-title {
+	margin: 0;
+	padding: 13px 0 0 26px;
+    font-size: 28px;
+    font-weight: bolder;
+	text-align: left;
+}
+.form-signin-input {
+	-moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius:8px;
+	margin: 10px 0 0 0;
+    background-color: #e6e6e6;
+    height: 40px;
+    width: 83%;
+    border: solid 2px #8facff;
+}
+.form-signin-input[type="text"] {
+	padding: 0px 0 0 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.form-signin-button {
+	position: relative;
+	margin-top: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 9px;
+    font-size: 18px;
+	font-weight: bolder;
+    color: #565656;
+	width: 160px;
+}
+.form-signin-button-left {
+	float: left;
+    margin-left: 25px;
+}
+.form-signin-button-right {
+	float: right;
+    margin-right: 25px;
+}
