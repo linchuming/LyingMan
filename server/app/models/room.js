@@ -18,6 +18,10 @@ function room_object() {
     this.getUserid = function () {return userId;};
     this.getMaster = function () {return master;};
     this.getSize = function () {return size;};
+
+    var speaking = [];
+    this.speaking = speaking;
+
     /**
      * 房间添加用户
      * @param user_id
@@ -36,8 +40,10 @@ function room_object() {
      * @param data
      */
     this.send_all = send_all;
-    function send_all(type, data) {
+    function send_all(type, data, who) {
         for(var k in userId) {
+            if(k === who) data.me = true; else data.me = false;
+
             var status = user.sendJson(userId[k], type, data);
             if(!status) {
                 //TODO: 如果发送失败，即用户掉线，要做的处理
@@ -62,8 +68,14 @@ function room_object() {
     var witch_rescue_time = 10;
     var witch_poison_time = 10;
     var prophet_time = 10;
+    var last_words_time = 20;
+    var discuss_time = 20;
+    var vote_time = 20;
 
     var second = 200;
+
+    var max_num_last_words = 2; // 允许的最多遗言数量
+    var num_last_words = 0; // 已用遗言数量
 
     //每个阶段最终被锁定的人
     var target = {
@@ -74,7 +86,9 @@ function room_object() {
         prophet_target: -1,
         rescue_chosen: false,
         poison_chosen: false,
-        wolfchoose: []
+        wolfchoose: [],
+        citizen_choose: {},
+        citizen_target: -1,
     };
     this.target = target; //使得外面对象可以访问target
 
@@ -88,44 +102,21 @@ function room_object() {
             start_guard(guard_time);
         } else {
             //天亮后，进行死亡人数统计与发布
-            var id1 = -1;
-            var id2 = -1;
-            if(target.werewolf_target == target.guard_target || target.werewolf_target == target.witch_rescue_target) {
-                id1 = -1;
-            } else {
-                id1 = target.werewolf_target;
-            }
-            if(target.witch_poison_target >= 0) {
-                if(id1 == -1) {
-                    id1 = target.witch_poison_target;
-                } else {
-                    id2 = target.witch_poison_target;
-                }
-            }
-            if(id1 >= 0) {
-                var userData = user.getUserData(id1);
-                userData.isDead = true;
-            }
-            if(id2 >= 0) {
-                var userData = user.getUserData(id2);
-                userData.isDead = true;
-            }
-            var data = {
-                id1: id1,
-                id2: id2
-            };
-            send_all('user_dead', data);
-            
-            //TODO: 天亮后要做的事情，交给老浴霸啦
+            var deads = announce_deads();
+
+            if(check_game_over()) return;
+
+            // 留遗言
+            start_last_words(deads);
         }
     }
 
-    function send_period(period, time) {
+    function send_period(period, time, who) {
         var data = {
             period: period,
             time: time
         };
-        send_all('announce_period_started', data);
+        send_all('announce_period_started', data, who);
     }
 
     function start_guard(wait_time) {
@@ -259,6 +250,180 @@ function room_object() {
         //进入天亮
         get_dark(false);
     }
+
+    function announce_deads() {
+        var id1 = -1;
+        var id2 = -1;
+        if(target.werewolf_target == target.guard_target || target.werewolf_target == target.witch_rescue_target) {
+            id1 = -1;
+        } else {
+            id1 = target.werewolf_target;
+        }
+        if(target.witch_poison_target >= 0) {
+            if(id1 == -1) {
+                id1 = target.witch_poison_target;
+            } else {
+                id2 = target.witch_poison_target;
+            }
+        }
+        if(id1 >= 0) {
+            var userData = user.getUserData(id1);
+            userData.isDead = true;
+        }
+        if(id2 >= 0) {
+            var userData = user.getUserData(id2);
+            userData.isDead = true;
+        }
+        var data = {
+            id1: id1,
+            id2: id2
+        };
+        send_all('user_dead', data);
+
+        return [id1, id2];
+    }
+
+    function start_last_words(deads) {
+        var ids = [];
+        for(var d in deads) {
+            if(num_last_words >= max_num_last_words) break;
+
+            num_last_words++;
+            ids.push(d);
+        }
+        next_one();
+
+        function next_one() {
+            if (!ids.length) {
+                end_last_words();
+                return;
+            }
+            var id = ids[0];
+            ids.splice(0, 1);
+            announce(id);
+        }
+
+        function announce(id) {
+            send_period('last_words', last_words_time, id);
+            speaking.push(id);
+
+            setTimeout(function() {
+                ids.splice(ids.indexOf(id), 1);
+                next_one();
+            }, last_words_time);
+        }
+    }
+
+    function end_last_words() {
+        start_discuss();
+    }
+
+    function start_discuss() {
+        var ids = [];
+        for(var id in userId) {
+            if(!user.getUserData(id).isDead) ids.push(d);
+        }
+        next_one();
+
+        function next_one() {
+            if (!ids.length) {
+                end_discuss();
+            }
+            var id = ids[0];
+            ids.splice(0, 1);
+            announce(id);
+        }
+
+        function announce(id) {
+            send_period('discuss', discuss_time, id);
+            speaking.push(id);
+
+            setTimeout(function() {
+                ids.splice(ids.indexOf(id), 1);
+                next_one();
+            }, discuss_time);
+        }
+    }
+
+    function end_discuss() {
+        start_vote();
+    }
+
+    this.setCitizenTarget = function(user_id, target_id) {
+        if(user.getUserData(target_id).isDead) return;
+        target.citizen_choose[user_id] = target_id;
+    };
+
+    this.broadcastVote = function() {
+        var data = {id: []};
+        for(var id in userId) {
+            if(target.citizen_choose[id] !== undefined) {
+                data.id.push(target.citizen_choose[id]);
+            }
+        }
+        send_all('user_is_chosen', data);
+    };
+
+    function start_vote() {
+        target.citizen_choose = {};
+        target.citizen_target = -1;
+
+        setTimeout(end_vote, vote_time);
+    }
+
+    function end_vote() {
+        var vote = {};
+        for(var id in userId) {
+            var target_id = target.citizen_choose[k];
+            if(vote[target_id] == undefined) {
+                vote[target_id] = 1;
+            } else {
+                vote[target_id]++;
+            }
+        }
+        var maxn = 0;
+        for(var id in vote) {
+            if(vote[id] > maxn) {
+                maxn = vote[id];
+                target.citizen_target = id;
+            }
+        }
+
+        var data = {
+            id: target.werewolf_target
+        };
+        console.log('citizen_target:', target.werewolf_target);
+        send_all('user_out', data);
+
+        if(target.citizen_target != -1) {
+            user.getUserData(target.citizen_target).isDead = true;
+            if(check_game_over()) return;
+        }
+
+        get_dark(false);
+    }
+
+    function check_game_over() {
+        var bad = [], good = [];
+
+        for(var id in userId) {
+            var u = user.getUserData(id);
+            if(!u.isDead) {
+                if(u.role == 2) bad.push(id); else good.push(id);
+            }
+        }
+
+        var is_over = bad.length == 0 || good.length == 0;
+        if(is_over) {
+            if(bad.length) {
+                send_all('game_over', {'is_game_over': true, 'id': bad});
+            } else {
+                send_all('game_over', {'is_game_over': true, 'id': good});
+            }
+        }
+
+        return is_over;
+    }
 }
 /**
  * 初始化房间
@@ -290,13 +455,19 @@ module.exports = {
      * @param from_name
      */
     sendTextMsg: function (room_id, message, from_id, from_name) {
-        var data = {
-            id: from_id,
-            name: from_name,
-            message: message
-        };
-        rooms[room_id].send_all('text_message', data);
+        if(from_id in rooms[room_id].speaking) {
+            var data = {
+                id: from_id,
+                name: from_name,
+                message: message
+            };
+            rooms[room_id].send_all('text_message', data);
+        }
     },
+
+    getRoom: function(room_id) {
+        return rooms[room_id];
+    }
 
     /**
      * 获取房间人数

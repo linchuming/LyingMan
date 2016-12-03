@@ -42,6 +42,12 @@ module.exports = {
             case 'prophet':
                 room.setProphetTarget(room_id, target_id);
                 break;
+            case 'vote':
+                var u = user.getUserData(user_id);
+                if(u.isDead) return;
+                room.getRoom(room_id).setCitizenTarget(user_id, target_id);
+                room.getRoom(room_id).broadcastVote();
+                break;
         }
 
     }
