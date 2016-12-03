@@ -1,8 +1,17 @@
-<link rel="stylesheet" href="vendor/css/signin.css">
-<div class="container">
-        <div class="form-signin">
-            <h2 class="form-signin-heading">选择房间</h2>
-            <input type="text" class="form-control" ng-model="roomnumber" placeholder="房间号" required autofocus>
-            <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="join()">Join</button>
-        </div>
+<link rel="stylesheet" href="vendor/css/login.css">
+<link rel="stylesheet" href="vendor/css/global.css">
+<script type="text/javascript" src="vendor/js/global.js"></script>
+
+<div id="screen" class="login-screen">
+	<img class="login-background" src="vendor/img/login/background.png" />
+	<div class="head-lying"></div>
+	<div class="head-man"></div>
+	
+	<div class="form-signin">
+		<form>
+			<h2 class="form-signin-title">选择房间</h2>
+			<input type="text" class="form-signin-input" placeholder="房间号" required autofocus>
+			<button class="form-signin-button">加入</button>
+		</form>
+	</div>
 </div>
