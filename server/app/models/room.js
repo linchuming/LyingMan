@@ -304,13 +304,13 @@ function room_object() {
         }
 
         function announce(id) {
-            send_period('last_words', last_words_time, id);
+            send_period('last_words', last_words_time * second, id);
             speaking.push(id);
 
             setTimeout(function() {
                 ids.splice(ids.indexOf(id), 1);
                 next_one();
-            }, last_words_time);
+            }, last_words_time * second);
         }
     }
 
@@ -335,13 +335,13 @@ function room_object() {
         }
 
         function announce(id) {
-            send_period('discuss', discuss_time, id);
+            send_period('discuss', discuss_time * second, id);
             speaking.push(id);
 
             setTimeout(function() {
                 ids.splice(ids.indexOf(id), 1);
                 next_one();
-            }, discuss_time);
+            }, discuss_time * second);
         }
     }
 
@@ -368,7 +368,9 @@ function room_object() {
         target.citizen_choose = {};
         target.citizen_target = -1;
 
-        setTimeout(end_vote, vote_time);
+        send_period('vote', vote_time * second);
+
+        setTimeout(end_vote, vote_time * second);
     }
 
     function end_vote() {
