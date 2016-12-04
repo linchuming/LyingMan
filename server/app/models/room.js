@@ -152,12 +152,11 @@ function room_object() {
                 vote[target_id]++;
             }
         }
-        console.log('vote', vote);
         var maxn = 0;
         for(var k in vote) {
             if(vote[k] > maxn) {
                 maxn = vote[k];
-                target.werewolf_target = k;
+                target.werewolf_target = parseInt(k);
             }
         }
         //向所有狼人发送他们最终被决定的人
@@ -477,7 +476,7 @@ module.exports = {
      */
     sendTextMsg: function (room_id, message, from_id, from_name) {
         console.log('from_id: ', from_id, 'room_id', room_id, 'room speaking: ', rooms[room_id].speaking);
-        if(rooms[room_id].speaking.indexOf(from_id) != -1) { //FIXME
+        if(rooms[room_id].speaking.indexOf(from_id) != -1) {
             var data = {
                 id: from_id,
                 name: from_name,
