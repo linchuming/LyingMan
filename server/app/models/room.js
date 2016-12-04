@@ -286,7 +286,6 @@ function room_object() {
     }
 
     function start_last_words(deads) {
-        console.log(deads);
         period = 'last_words';
 
         var ids = [];
@@ -299,7 +298,6 @@ function room_object() {
         next_one();
 
         function next_one() {
-            console.log('deads: ', ids);
             if (!ids.length) {
                 end_last_words();
                 return;
