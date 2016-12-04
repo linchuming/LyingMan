@@ -28,6 +28,7 @@ function room_object() {
      */
     this.add_user = function (user_id) {
         userId.push(user_id);
+        speaking.push(user_id); // 游戏开始前每个人都可以说话
         if(size == 0) {
             master = user_id;
         }
@@ -42,7 +43,7 @@ function room_object() {
     this.send_all = send_all;
     function send_all(type, data, who) {
         for(var k in userId) {
-            if(k === who) data.me = true; else data.me = false;
+            if(userId[k] === who) data.me = true; else data.me = false;
 
             var status = user.sendJson(userId[k], type, data);
             if(!status) {
@@ -52,6 +53,7 @@ function room_object() {
     };
 
     this.start_game = function () {
+        speaking.splice(0); // 游戏开始后不能说话
         get_dark(true);
     };
 
@@ -150,6 +152,7 @@ function room_object() {
                 vote[target_id]++;
             }
         }
+        console.log('vote', vote);
         var maxn = 0;
         for(var k in vote) {
             if(vote[k] > maxn) {
@@ -284,16 +287,20 @@ function room_object() {
     }
 
     function start_last_words(deads) {
+        console.log(deads);
+        period = 'last_words';
+
         var ids = [];
-        for(var d in deads) {
-            if(num_last_words >= max_num_last_words) break;
+        deads.forEach(function(d) {
+            if(num_last_words >= max_num_last_words) return;
 
             num_last_words++;
             ids.push(d);
-        }
+        });
         next_one();
 
         function next_one() {
+            console.log('deads: ', ids);
             if (!ids.length) {
                 end_last_words();
                 return;
@@ -304,11 +311,14 @@ function room_object() {
         }
 
         function announce(id) {
-            send_period('last_words', last_words_time * second, id);
+            send_period('last_words', last_words_time, id);
             speaking.push(id);
 
+            console.log(id, ' can speak now, speaking list: ', speaking);
+
             setTimeout(function() {
-                ids.splice(ids.indexOf(id), 1);
+                speaking.splice(speaking.indexOf(id), 1);
+                console.log(id, ' cannot speak now, speaking list: ', speaking);
                 next_one();
             }, last_words_time * second);
         }
@@ -319,10 +329,12 @@ function room_object() {
     }
 
     function start_discuss() {
+        period = 'discuss';
+
         var ids = [];
-        for(var id in userId) {
-            if(!user.getUserData(id).isDead) ids.push(d);
-        }
+        userId.forEach(function(id) {
+            if(!user.getUserData(id).isDead) ids.push(id);
+        });
         next_one();
 
         function next_one() {
@@ -335,11 +347,11 @@ function room_object() {
         }
 
         function announce(id) {
-            send_period('discuss', discuss_time * second, id);
+            send_period('discuss', discuss_time, id);
             speaking.push(id);
 
             setTimeout(function() {
-                ids.splice(ids.indexOf(id), 1);
+                speaking.splice(speaking.indexOf(id), 1);
                 next_one();
             }, discuss_time * second);
         }
@@ -356,35 +368,42 @@ function room_object() {
 
     this.broadcastVote = function() {
         var data = {id: []};
-        for(var id in userId) {
+        userId.forEach(function(id) {
             if(target.citizen_choose[id] !== undefined) {
                 data.id.push(target.citizen_choose[id]);
             }
-        }
+        });
         send_all('user_is_chosen', data);
     };
 
     function start_vote() {
+        period = 'vote';
+
         target.citizen_choose = {};
         target.citizen_target = -1;
 
-        send_period('vote', vote_time * second);
+        send_period('vote', vote_time);
 
         setTimeout(end_vote, vote_time * second);
     }
 
     function end_vote() {
+        console.log('citizen_choose', target.citizen_choose);
         var vote = {};
-        for(var id in userId) {
-            var target_id = target.citizen_choose[k];
-            if(vote[target_id] == undefined) {
+        userId.forEach(function(id) {
+            var target_id = target.citizen_choose[id];
+            if(target_id == undefined) return;
+
+            if(vote[target_id] === undefined) {
                 vote[target_id] = 1;
             } else {
                 vote[target_id]++;
             }
-        }
+        });
+        console.log('vote', vote);
         var maxn = 0;
         for(var id in vote) {
+            console.log(id);
             if(vote[id] > maxn) {
                 maxn = vote[id];
                 target.citizen_target = id;
@@ -392,9 +411,9 @@ function room_object() {
         }
 
         var data = {
-            id: target.werewolf_target
+            id: target.citizen_target
         };
-        console.log('citizen_target:', target.werewolf_target);
+        console.log('citizen_target:', target.citizen_target);
         send_all('user_out', data);
 
         if(target.citizen_target != -1) {
@@ -402,18 +421,18 @@ function room_object() {
             if(check_game_over()) return;
         }
 
-        get_dark(false);
+        get_dark(true);
     }
 
     function check_game_over() {
         var bad = [], good = [];
 
-        for(var id in userId) {
+        userId.forEach(function(id) {
             var u = user.getUserData(id);
             if(!u.isDead) {
                 if(u.role == 2) bad.push(id); else good.push(id);
             }
-        }
+        });
 
         var is_over = bad.length == 0 || good.length == 0;
         if(is_over) {
@@ -457,7 +476,8 @@ module.exports = {
      * @param from_name
      */
     sendTextMsg: function (room_id, message, from_id, from_name) {
-        if(from_id in rooms[room_id].speaking) {
+        console.log('from_id: ', from_id, 'room_id', room_id, 'room speaking: ', rooms[room_id].speaking);
+        if(rooms[room_id].speaking.indexOf(from_id) != -1) { //FIXME
             var data = {
                 id: from_id,
                 name: from_name,
@@ -469,7 +489,7 @@ module.exports = {
 
     getRoom: function(room_id) {
         return rooms[room_id];
-    }
+    },
 
     /**
      * 获取房间人数
