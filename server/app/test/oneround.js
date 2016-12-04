@@ -90,5 +90,20 @@ function test_send() {
             data.target_id = 2;
             target.do(client, data);
             break;
+        case 'last_words':
+            data.id = 1;
+            data.message = 'my last words';
+            msg.do(client, data);
+            break;
+        case 'discuss':
+            data.id = 0;
+            data.message = 'discuss something';
+            msg.do(client, data);
+            break;
+        case 'vote':
+            data.id = 0;
+            data.target_id = 0;
+            target.do(client, data);
+            break;
     }
 }
