@@ -11,6 +11,19 @@ var rooms = [];
 var json = require('../utils/json');
 var user = require('./user');
 
+/*
+ 平民      1
+ 狼人      2
+ 预言家    3
+ 女巫      4
+ 守卫      5
+ */
+var civilian_role   =   1;
+var werewolf_role   =   2;
+var prophet_role    =   3;
+var witch_role      =   4;
+var guard_role      =   5;
+
 function room_object() {
     var userId = [];
     var master = -1;
@@ -43,14 +56,41 @@ function room_object() {
     this.send_all = send_all;
     function send_all(type, data, who) {
         for(var k in userId) {
-            if(userId[k] === who) data.me = true; else data.me = false;
+            if(who != undefined) {
+                data.me = false;
+                if(typeof who == 'number') {
+                    if(userId[k] === who) data.me = true;
+                } else {
+                    for(var j in who) {
+                        if(userId[k] == who[j]) {
+                            data.me = true;
+                        }
+                    }
+                }
+            }
 
             var status = user.sendJson(userId[k], type, data);
             if(!status) {
                 //TODO: 如果发送失败，即用户掉线，要做的处理
             }
         }
-    };
+    }
+
+    /**
+     * 根据角色获取房间的用户Id（且没有出局）
+     * @param role
+     * @returns {Array}
+     */
+    function get_userId_by_role(role) {
+        var res = [];
+        userId.forEach(function (id) {
+            var usrData = user.getUserData(id);
+            if(usrData.role == role && usrData.isDead == false) {
+                res.push(id);
+            }
+        });
+        return res;
+    }
 
     this.start_game = function () {
         speaking.splice(0); // 游戏开始后不能说话
@@ -123,7 +163,8 @@ function room_object() {
 
     function start_guard(wait_time) {
         period = 'guard';
-        send_period('guard', wait_time);
+        var who = get_userId_by_role(guard_role);
+        send_period('guard', wait_time, who);
         target.guard_target = -1;
         setTimeout(end_guard, wait_time * second);
     }
@@ -137,7 +178,8 @@ function room_object() {
         period = 'werewolf';
         target.werewolf_target = -1;
         target.wolfchoose = [];
-        send_period('werewolf', wait_time);
+        var who = get_userId_by_role(werewolf_role);
+        send_period('werewolf', wait_time, who);
         setTimeout(end_werewolf, wait_time * second);
     }
 
@@ -177,7 +219,14 @@ function room_object() {
     function start_witch_rescue(wait_time) {
         period = 'witch_rescue';
         target.rescue_chosen = false;
-        send_period('witch_rescue', wait_time);
+        var who = get_userId_by_role(witch_role);
+        if(who.length) {
+            var usrData = user.getUserData(who[0]);
+            if(usrData.rescue == false) {
+                who = -1;
+            }
+        }
+        send_period('witch_rescue', wait_time, who);
         //给女巫发送要救的人的user_id
         var data = {
             id: target.werewolf_target
@@ -212,7 +261,14 @@ function room_object() {
     function start_witch_poison(wait_time) {
         period = 'witch_poison';
         target.poison_chosen = false;
-        send_period('witch_poison', wait_time);
+        var who = get_userId_by_role(witch_role);
+        if(who.length) {
+            var usrData = user.getUserData(who[0]);
+            if(usrData.poison == false) {
+                who = -1;
+            }
+        }
+        send_period('witch_poison', wait_time, who);
         setTimeout(end_witch_poison, wait_time * second);
     }
 
@@ -228,7 +284,8 @@ function room_object() {
     function start_prophet(wait_time) {
         period = 'prophet';
         target.prophet_target = userId[0]; //如果预言家不指定任何人，就查第一个
-        send_period('prophet', wait_time);
+        var who = get_userId_by_role(prophet_role);
+        send_period('prophet', wait_time, who);
         setTimeout(end_prophet, wait_time * second);
     }
 
@@ -337,6 +394,7 @@ function room_object() {
         function next_one() {
             if (!ids.length) {
                 end_discuss();
+                return;
             }
             var id = ids[0];
             ids.splice(0, 1);
@@ -454,6 +512,15 @@ function init_room(room_number) {
 
 module.exports = {
     /**
+     * 若房间不存在，则创建房间
+     * @param room_id
+     */
+    createRoom: function(room_id) {
+        if(rooms[room_id] == undefined) {
+            init_room(room_id);
+        }
+    },
+    /**
      * 添加房间用户
      * @param room_id
      * @param user_id
@@ -464,7 +531,16 @@ module.exports = {
         }
         rooms[room_id].add_user(user_id);
     },
-
+    /**
+     * 向该房间所有人发送API
+     * @param room_id
+     * @param type
+     * @param data
+     * @param who
+     */
+    sendRoom: function(room_id, type, data, who) {
+        rooms[room_id].send_all(type, data, who);
+    },
     /**
      * 发送文字消息到房间的所有用户
      * @param room_id
