@@ -1,0 +1,13 @@
+background color: R26 G47 B80
+
+claw rotation {
+	user1: 49°
+	user2: 28°
+	user3: 12°
+	user4: 4°
+	user5: -26°
+	user6: 213°
+	user7: 196°
+	user8: 189° 
+	user9: 164°
+}
