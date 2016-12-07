@@ -248,36 +248,35 @@
 	position: fixed;
 	top: 68%;
 	left: 21%;
-	
 }
 .player-dialog-2 {
-	position: fixed;
-	top: 2%;
-	left: 36%;
+    position: fixed;
+    top: 67%;
+    left: 36%;
 	display: none;
 }
 .player-dialog-3 {
-	position: fixed;
-	top: 4%;
-	left: 21%;
+    position: fixed;
+    top: 70%;
+    left: 52%;
 	display: none;
 }
 .player-dialog-4 {
-	position: fixed;
-	top: 4%;
-	left: 21%;
+    position: fixed;
+    top: 67%;
+    left: 68%;
 	display: none;
 }
 .player-dialog-5 {
-	position: fixed;
-	top: 4%;
-	left: 21%;
+    position: fixed;
+    top: 56%;
+    left: 77%;
 	display: none;
 }
 .player-dialog-6 {
 	position: fixed;
-	top: 4%;
-	left: 21%;
+    top: 0%;
+    left: 78%;
 	display: none;
 }
 .player-dialog-7 {
