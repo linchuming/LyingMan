@@ -1,0 +1,300 @@
+.screen {
+	background-color: #1a2f50 !important;
+	text-align: center;
+}
+.background {
+	position: fixed;
+    top: 5%;
+    left: 12.5%;
+    width: auto;
+    height: 90%;
+    z-index: -2;
+}
+.id {
+	position: fixed;
+    top: 30%;
+    left: 20%;
+    width: auto;
+    height: 40%;
+    z-index: -1;
+}
+.lyingman-icon {
+	position: fixed;
+	top: 2%;
+	left: 0;
+	width: auto;
+	height: 17%;
+	z-index: -1;
+}
+.player-card {
+	position: fixed;
+    bottom: 40%;
+    left: 47%;
+    height: 9%;
+    width: auto;
+    z-index: 0;
+}
+.table-section {
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	height: 100%;
+	width: 100%;
+}
+.player-name-section {
+	font-family: "楷体","楷体_GB2312";
+    font-size: 18px;
+	font-weight: bold;
+}
+.player-name-section div {
+	position: fixed;
+	/*border: solid 2px black;*/
+	width: 150px;
+	text-align: center;
+	transform-origin: 50% 50%;
+}
+.player-name-section p {
+	margin: auto;
+}
+.player-name-1 {
+	left: 10%;
+	bottom: 33%;
+	transform: rotate(30deg);
+}
+.player-name-2 {
+	left: 23%;
+    bottom: 26%;
+    transform: rotate(11deg);
+}
+.player-name-3 {
+	left: 38%;
+    bottom: 23%;
+    transform: rotate(0deg);
+}
+.player-name-4 {
+	left: 53%;
+    bottom: 26%;
+    transform: rotate(-12deg);
+}
+.player-name-5 {
+	left: 66%;
+    bottom: 33%;
+    transform: rotate(-30deg);
+}
+.player-name-6 {
+    left: 65%;
+    bottom: 64%;
+    transform: rotate(29deg);
+}
+.player-name-7 {
+    left: 53%;
+    bottom: 70%;
+    transform: rotate(13deg);
+}
+.player-name-8 {
+    left: 23%;
+    bottom: 70%;
+    transform: rotate(-12deg);
+}
+.player-name-9 {
+	left: 10%;
+    bottom: 63%;
+    transform: rotate(-32deg);
+}
+.player-number-section {
+	font-family: "楷体","楷体_GB2312";
+    font-size: 24px;
+	font-weight: bold;
+	color: #1d62a9;
+}
+.player-number-section p {
+	position: fixed;
+	text-align: center;
+	transform-origin: 50% 50%;
+}
+.player-number-1 {
+    left: 22.4%;
+    bottom: 33%;
+    transform: rotate(30deg);
+}
+.player-number-2 {
+    left: 34%;
+    bottom: 27%;
+    transform: rotate(9deg);
+}
+.player-number-3 {
+	left: 48.5%;
+    bottom: 23%;
+    transform: rotate(0deg);
+}
+.player-number-4 {
+    left: 62%;
+    bottom: 27%;
+    transform: rotate(-24deg);
+}
+.player-number-5 {
+	left: 74%;
+    bottom: 33%;
+    transform: rotate(-35deg);
+}
+.player-number-6 {
+    left: 74%;
+    bottom: 50%;
+    transform: rotate(16deg);
+}
+.player-number-7 {
+    left: 62.6%;
+    bottom: 56%;
+    transform: rotate(9deg);
+}
+.player-number-8 {
+	left: 34%;
+    bottom: 56%;
+    transform: rotate(-13deg);
+}
+.player-number-9 {
+    left: 22.4%;
+    bottom: 50%;
+    transform: rotate(-37deg);
+}
+.player-death-section img {
+	position: fixed;
+	width: auto;
+	height: 5%;
+}
+.player-death-1 {
+    left: 20%;
+    bottom: 40%;
+    transform: rotate(50deg);
+}
+.player-death-2 {
+    left: 32%;
+    bottom: 35%;
+    transform: rotate(29deg);
+}
+.player-death-3 {
+	left: 46.5%;
+    bottom: 31%;
+    transform: rotate(20deg);
+}
+.player-death-4 {
+    left: 60%;
+    bottom: 35%;
+    transform: rotate(-4deg);
+}
+.player-death-5 {
+	left: 72%;
+    bottom: 41%;
+    transform: rotate(-15deg);
+}
+.player-death-6 {
+    left: 72%;
+    bottom: 58%;
+    transform: rotate(36deg);
+}
+.player-death-7 {
+    left: 60.6%;
+    bottom: 63%;
+    transform: rotate(29deg);
+}
+.player-death-8 {
+	left: 32%;
+    bottom: 64%;
+    transform: rotate(-33deg);
+}
+.player-death-9 {
+    left: 20.4%;
+    bottom: 58%;
+    transform: rotate(-57deg);
+}
+.player-dialog-section {
+	font-family: "楷体","楷体_GB2312";
+    font-size: 16px;
+	font-weight: normal;
+	color: black;
+}
+.player-dialog {
+	width: 90px;
+    padding: 18px 6px;
+    margin-left: 44px;
+    background: #beceeb;
+    position: relative;
+    word-wrap: break-word;
+    border-radius: 5px;
+}
+.player-dialog span {
+	width:0; 
+	height:0; 
+	font-size:0; 
+	overflow:hidden; 
+	position:absolute;
+}
+.player-dialog span.bot {
+	border-width: 24px;
+    border-style: solid;
+    border-color: transparent #beceeb #beceeb transparent;
+    left: -22px;
+    top: 2px;
+    z-index: -1;
+}
+.player-dialog span.top {
+	border-width: 5px 11px;
+    border-style: dashed solid solid dashed;
+    border-color: transparent #1a2f50 #1a2f50 transparent;
+    left: -22px;
+    top: 41px;
+}
+.player-dialog-1 {
+	position: fixed;
+	top: 68%;
+	left: 21%;
+	
+}
+.player-dialog-2 {
+	position: fixed;
+	top: 2%;
+	left: 36%;
+	display: none;
+}
+.player-dialog-3 {
+	position: fixed;
+	top: 4%;
+	left: 21%;
+	display: none;
+}
+.player-dialog-4 {
+	position: fixed;
+	top: 4%;
+	left: 21%;
+	display: none;
+}
+.player-dialog-5 {
+	position: fixed;
+	top: 4%;
+	left: 21%;
+	display: none;
+}
+.player-dialog-6 {
+	position: fixed;
+	top: 4%;
+	left: 21%;
+	display: none;
+}
+.player-dialog-7 {
+	position: fixed;
+	top: 4%;
+	left: 68%;
+	display: none;
+}
+.player-dialog-8 {
+	position: fixed;
+	top: 2%;
+	left: 36%;
+	
+}
+.player-dialog-9 {
+	position: fixed;
+	top: 4%;
+	left: 21%;
+	display: none;
+}

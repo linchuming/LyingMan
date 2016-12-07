@@ -13,6 +13,10 @@
 			templateUrl: 'app/component/offlineroom.html',
 			 controller: 'offlineroomController'
 		})
+		.when("/enterroom", {
+			templateUrl: 'app/component/enterroom.html',
+			controller: 'enterroomController'
+		})
 		.otherwise({
 		  redirectTo: '/login'
 		});

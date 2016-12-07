@@ -42,8 +42,8 @@
 }
 .form-signin-title {
 	margin: 0;
-	padding: 13px 0 0 26px;
-    font-size: 28px;
+	padding: 10px 0 0 22px;
+    font-size: 26px;
     font-weight: bolder;
 	text-align: left;
 }
@@ -51,9 +51,9 @@
 	-moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius:8px;
-	margin: 10px 0 0 0;
+	margin: 7px 0 0 0;
     background-color: #e6e6e6;
-    height: 40px;
+    height: 38px;
     width: 83%;
     border: solid 2px #8facff;
 }
@@ -64,20 +64,20 @@
 }
 .form-signin-button {
 	position: relative;
-	margin-top: 12px;
+	margin-top: 10px;
     border-radius: 8px;
     box-sizing: border-box;
     padding: 9px;
-    font-size: 18px;
+    font-size: 19px;
 	font-weight: bolder;
     color: #565656;
-	width: 160px;
+	width: 145px;
 }
 .form-signin-button-left {
 	float: left;
-    margin-left: 25px;
+    margin-left: 24px;
 }
 .form-signin-button-right {
 	float: right;
-    margin-right: 25px;
+    margin-right: 24px;
 }
