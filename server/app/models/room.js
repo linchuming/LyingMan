@@ -61,8 +61,13 @@ function room_object() {
                 if(typeof who == 'number') {
                     if(userId[k] === who) data.me = true;
                 } else {
+                    data.ids = undefined;
                     for(var j in who) {
                         if(userId[k] == who[j]) {
+                            //给狼人阶段打一个补丁
+                            if(data.period == 'werewolf') {
+                                data.ids = who;
+                            }
                             data.me = true;
                         }
                     }
@@ -114,7 +119,7 @@ function room_object() {
     var discuss_time = 20;
     var vote_time = 20;
 
-    var second = 200;
+    var second = 1000;
 
     var max_num_last_words = 2; // 允许的最多遗言数量
     var num_last_words = 0; // 已用遗言数量
