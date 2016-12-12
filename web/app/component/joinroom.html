@@ -10,8 +10,8 @@
 	<div class="form-signin">
 		<form>
 			<h2 class="form-signin-title">选择房间</h2>
-			<input type="text" class="form-signin-input" placeholder="房间号" required autofocus>
-			<button class="form-signin-button">加入</button>
+			<input ng-model="roomnumber" type="text" class="form-signin-input" placeholder="房间号" required autofocus>
+			<button class="form-signin-button" ng-click="join()">加入</button>
 		</form>
 	</div>
 </div>

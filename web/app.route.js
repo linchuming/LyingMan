@@ -15,7 +15,7 @@
 		})
 		.when("/enterroom", {
 			templateUrl: 'app/component/enterroom.html',
-			controller: 'enterroomController'
+			controller: 'roomController'
 		})
 		.otherwise({
 		  redirectTo: '/login'

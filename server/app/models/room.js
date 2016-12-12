@@ -181,7 +181,7 @@ function room_object() {
 
     function start_werewolf(wait_time) {
         period = 'werewolf';
-        target.werewolf_target = -1;
+        target.werewolf_target = userId[0]; //如果狼人不选择，默认杀第一个人
         target.wolfchoose = [];
         var who = get_userId_by_role(werewolf_role);
         send_period('werewolf', wait_time, who);
@@ -352,6 +352,7 @@ function room_object() {
 
         var ids = [];
         deads.forEach(function(d) {
+            if(d == -1) return;
             if(num_last_words >= max_num_last_words) return;
 
             num_last_words++;

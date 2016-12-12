@@ -27,16 +27,25 @@ module.exports = {
 
         //向该用户发送房间所有人信息（包括自己）
         var users = [];
+        var seatId;
         var userId = room.getRoomUserId(room_id);
-        userId.forEach(function (id) {
-            var name = user.getUserName(id);
-            users.push({id: id, name: name});
-        });
+        for (var k in userId) {
+            var name = user.getUserName(userId[k]);
+            users.push({id: userId[k], name: name, seatId: Number(k)+1});
+            if(userId[k] == user_id) {
+                seatId = Number(k) + 1;
+            }
+        }
+        // userId.forEach(function (id) {
+        //     var name = user.getUserName(id);
+        //     users.push({id: id, name: name});
+        // });
         client.send(json.json_encode('room_info', {users: users}));
         //向房间内所有人发送该用户的登录信息
         room.sendRoom(room_id, 'room_user_change',
             {   id: user_id,
                 name: user.getUserName(user_id),
+                seatId: seatId,
                 enter: true
             }, user_id);
         //房间人数达到条件值，可以开始游戏
