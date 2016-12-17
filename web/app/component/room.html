@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="vendor/css/room.css">
 <link rel="stylesheet" href="vendor/css/global.css">
 <script type="text/javascript" src="vendor/js/global.js"></script>
+<script type="text/javascript" src="vendor/js/game.js"></script>
 
+<!--进入房间界面-->
 <div id="screen" class="enter-screen" style="display:none">
 	<img class="enter-bg" src="vendor/img/gameroom/enter-bg.png" />
 	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
@@ -12,12 +14,14 @@
 	</div>
 </div>
 
+<!--游戏界面-->
 <div id="screen" class="game-screen">
 	<img class="game-bg" src="vendor/img/gameroom/game-bg.png" />
 	<img class="id" src="vendor/img/gameroom/id.png" />
 	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
 	<img class="player-card" src="vendor/img/gameroom/cards/wolf.png" >
 	<div class="table-section">
+		<!--显示每个人的昵称-->
 		<div class="player-name-section">
 			<div class="player-name-1">
 				<p>xiaoming</p>
@@ -47,6 +51,7 @@
 				<p>bowen</p>
 			</div>
 		</div>
+		<!--显示每个人的数字编号-->
 		<div class="player-number-section">
 			<p class="player-number-1">1</p>
 			<p class="player-number-2">2</p>
@@ -58,6 +63,7 @@
 			<p class="player-number-8">8</p>
 			<p class="player-number-9">9</p>
 		</div>
+		<!--显示每个人的存活状态-->
 		<div class="player-death-section">
 			<img class="player-death-1" src="vendor/img/gameroom/claw.png" />
 			<img class="player-death-2" src="vendor/img/gameroom/claw.png" />
@@ -69,6 +75,7 @@
 			<img class="player-death-8" src="vendor/img/gameroom/claw.png" />
 			<img class="player-death-9" src="vendor/img/gameroom/claw.png" />
 		</div>
+		<!--显示每个人的对话框-->
 		<div class="player-dialog-section">
 			<div class="player-dialog-1">
 				<div class="player-dialog">
@@ -134,11 +141,51 @@
 				</div>
 			</div>
 		</div>
-		<div class="player-chat-section">
+		<!--右下角打字输入框-->
+		<div class="player-chat-section" style="display:none;">
 			<form>
 				<textarea class="player-chat-text">123123</textarea>
 				<button class="player-chat-btn">发送</button>
 			</form>
+		</div>
+		<!--预言家选择框-->
+		<div class="player-select-section" name="player-predictor-section">
+			<p>预言家，今晚你要查验谁的身份？</p>
+			<div class="player-select-list-predictor">
+				<button class="player-select-btn player-select-1">1</button>
+				<button class="player-select-btn player-select-2">2</button>
+				<button class="player-select-btn player-select-3">3</button>
+				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
+				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
+				<button class="player-select-btn player-select-6">6</button>
+				<button class="player-select-btn player-select-7">7</button>
+				<button class="player-select-btn player-select-8">8</button>
+				<button class="player-select-btn player-select-9">9</button>
+			</div>
+			<img class="img-identity" src="vendor/img/gameroom/goodman.png" />
+			<img class="img-identity" src="vendor/img/gameroom/badman.png" style="display:none;" />
+			<div class="img-clock img-clock-predictor">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
+		</div>
+		<!--狼人选择框-->
+		<div class="player-select-section" name="player-wolf-section"  style="display:none;">
+		</div>
+		<!--守卫选择框-->
+		<div class="player-select-section" name="player-guard-section" style="display:none;">
+		</div>
+		<!--女巫救人框-->
+		<div class="player-select-section" name="player-witch-save-section" style="display:none;">
+		</div>
+		<!--女巫毒人框-->
+		<div class="player-select-section" name="player-witch-poison-section" style="display:none;">
+		</div>
+		<!--投票选择框-->
+		<div class="player-select-section" name="player-vote-section" style="display:none;">
+		</div>
+		<!--无关人等框-->
+		<div class="player-select-section" name="player-unrelated-section" style="display:none;">
 		</div>
 	</div>
 </div>
