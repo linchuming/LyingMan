@@ -1,8 +1,40 @@
-.screen {
+.enter-screen {
 	background-color: #1a2f50 !important;
 	text-align: center;
 }
-.background {
+.enter-bg {
+	position: relative;
+    top: 4%;
+    left: 0;
+    width: auto;
+    height: 90%;
+	z-index: -2;
+}
+.enter-message-box {
+	position: fixed;
+    top: 32%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.enter-message-box p {
+	font-family: "楷体","楷体_GB2312";
+    font-size: 19px;
+	margin: auto;
+	margin-top: 10px;
+}
+.enter-startbtn {
+	position: relative;
+    margin-top: 10px;
+    filter: hue-rotate(90deg) saturate(50%);
+}
+
+.game-screen {
+	background-color: #1a2f50 !important;
+	text-align: center;
+}
+.game-bg {
 	position: fixed;
     top: 5%;
     left: 12.5%;
@@ -296,4 +328,23 @@
 	top: 4%;
 	left: 21%;
 	display: none;
+}
+.player-chat-section {
+	position: fixed;
+    bottom: 5px;
+    right: 5px;
+    width: 225px;
+    height: 135px;
+    background-color: rgba(232, 232, 232, 0.47);
+    border-radius: 5px;
+    text-align: left;
+}
+.player-chat-text {
+	width: 151px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.player-chat-btn {
+	
 }
