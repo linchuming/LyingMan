@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="vendor/css/room.css">
+<link rel="stylesheet" href="vendor/css/global.css">
+<script type="text/javascript" src="vendor/js/global.js"></script>
+
+<div id="screen" class="enter-screen" style="display:none">
+	<img class="enter-bg" src="vendor/img/gameroom/enter-bg.png" />
+	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
+	<div class="enter-message-box">
+		<p>欢迎，大佬进入房间{{roomnumber}}</p>
+		<p>当前房间人数：{{usernumber}}/9</p>
+		<img ng-show="complete" ng-click="startGame()" class="enter-startbtn" src="vendor/img/gameroom/start-btn.png"/>
+	</div>
+</div>
+
+<div id="screen" class="game-screen">
+	<img class="game-bg" src="vendor/img/gameroom/game-bg.png" />
+	<img class="id" src="vendor/img/gameroom/id.png" />
+	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
+	<img class="player-card" src="vendor/img/gameroom/cards/wolf.png" >
+	<div class="table-section">
+		<div class="player-name-section">
+			<div class="player-name-1">
+				<p>xiaoming</p>
+			</div>
+			<div class="player-name-2">
+				<p>lu</p>
+			</div>
+			<div class="player-name-3">
+				<p>xixi</p>
+			</div>
+			<div class="player-name-4">
+				<p>zhuge</p>
+			</div>
+			<div class="player-name-5">
+				<p>cyx</p>
+			</div>
+			<div class="player-name-6">
+				<p>lhy</p>
+			</div>
+			<div class="player-name-7">
+				<p>nvwang</p>
+			</div>
+			<div class="player-name-8">
+				<p>erjing</p>
+			</div>
+			<div class="player-name-9">
+				<p>bowen</p>
+			</div>
+		</div>
+		<div class="player-number-section">
+			<p class="player-number-1">1</p>
+			<p class="player-number-2">2</p>
+			<p class="player-number-3">3</p>
+			<p class="player-number-4">4</p>
+			<p class="player-number-5">5</p>
+			<p class="player-number-6">6</p>
+			<p class="player-number-7">7</p>
+			<p class="player-number-8">8</p>
+			<p class="player-number-9">9</p>
+		</div>
+		<div class="player-death-section">
+			<img class="player-death-1" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-2" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-3" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-4" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-5" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-6" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-7" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-8" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-9" src="vendor/img/gameroom/claw.png" />
+		</div>
+		<div class="player-dialog-section">
+			<div class="player-dialog-1">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					5号是狼人
+				</div>
+			</div>
+			<div class="player-dialog-2">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-3">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-4">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-5">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-6">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-7">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-8">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+			<div class="player-dialog-9">
+				<div class="player-dialog">
+					<span class="bot"></span>
+					<span class="top"></span>
+					2号查杀，5号金水，今天全票出2
+				</div>
+			</div>
+		</div>
+		<div class="player-chat-section">
+			<form>
+				<textarea class="player-chat-text">123123</textarea>
+				<button class="player-chat-btn">发送</button>
+			</form>
+		</div>
+	</div>
+</div>
