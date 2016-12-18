@@ -380,6 +380,34 @@
     width: 37%;
     height: 70%;
 }
+.player-select-list-wolf {
+	position: absolute;
+    margin-left: 4%;
+    margin-top: 2%;
+    width: 37%;
+    height: 70%;
+}
+.player-select-list-guard {
+	position: absolute;
+    margin-left: 16%;
+    margin-top: 2%;
+    width: 37%;
+    height: 70%;
+}
+.player-select-list-poison {
+	position: absolute;
+    margin-left: 16%;
+    margin-top: 2%;
+    width: 37%;
+    height: 70%;
+}
+.player-select-list-vote {
+	position: absolute;
+    margin-left: 16%;
+    margin-top: 2%;
+    width: 37%;
+    height: 70%;
+}
 .player-select-btn {
 	border-radius: 17px;
     width: 34px;
@@ -453,6 +481,26 @@
 	left: 80%;
 	bottom: 30%;
 }
+.img-clock-guard {
+	left: 64%;
+	bottom: 30%;
+}
+.img-clock-poison {
+	left: 64%;
+	bottom: 30%;
+}
+.img-clock-vote {
+	left: 64%;
+	bottom: 30%;
+}
+.img-clock-witch-save {
+	left: 35%;
+	bottom: 45%;
+}
+.img-clock-witch-unrelated {
+	left: 35%;
+	bottom: 45%;
+}
 .img-clock-horizon img{
 	position: absolute;
     width: 40%;
@@ -495,13 +543,6 @@
     color: #2958a2;
     margin: -2px 2px 0px 2px;
     display: inline-block;
-}
-.player-select-list-predictor {
-	position: absolute;
-    margin-left: 4%;
-    margin-top: 2%;
-    width: 37%;
-    height: 70%;
 }
 .player-select-1-wolf {
 	left: 0;
@@ -615,4 +656,26 @@
 .player-vote2kill-9-2 {
     left: 177%;
     top: 77%;
+}
+.player-choose-btn {
+	font-family: "楷体","楷体_GB2312";
+	font-size: 18px;
+    font-weight: bolder;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: #b3b3b3;
+    width: 29%;
+    height: 18%;
+	position: absolute;
+	bottom: 20%;
+}
+.player-choose-btn-left {
+	left: 15%;
+}
+.player-choose-btn-right {
+	right: 15%;
+}
+.player-action-info {
+	color: #54e6f3;
+	font-weight: bolder;
 }

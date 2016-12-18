@@ -172,7 +172,7 @@
 		<!--狼人选择框-->
 		<div class="player-select-section" name="player-wolf-section" style="display:none;">
 			<p>狼人<span class="player-select-info">1</span><span class="player-select-info">2</span><span class="player-select-info">3</span>今晚要杀死谁？</p>
-			<div class="player-select-list-predictor">
+			<div class="player-select-list-wolf">
 				<button class="player-select-btn player-select-1-wolf">1</button>
 				<button class="player-select-btn player-select-2-wolf">2</button>
 				<button class="player-select-btn player-select-3-wolf">3</button>
@@ -208,19 +208,79 @@
 			</div>
 		</div>
 		<!--守卫选择框-->
-		<div class="player-select-section" name="player-guard-section" style="display:none;">
+		<div class="player-select-section" name="player-guard-section"  style="display:none;">
+			<p>守卫，今晚你要守护哪位玩家？</p>
+			<div class="player-select-list-guard">
+				<button class="player-select-btn player-select-1">1</button>
+				<button class="player-select-btn player-select-2">2</button>
+				<button class="player-select-btn player-select-3">3</button>
+				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
+				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
+				<button class="player-select-btn player-select-6">6</button>
+				<button class="player-select-btn player-select-7">7</button>
+				<button class="player-select-btn player-select-8">8</button>
+				<button class="player-select-btn player-select-9">9</button>
+			</div>
+			<div class="img-clock-vertical img-clock-guard">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
 		</div>
 		<!--女巫救人框-->
-		<div class="player-select-section" name="player-witch-save-section" style="display:none;">
+		<div class="player-select-section" name="player-witch-save-section">
+			<p>女巫，今晚<span class="player-select-info">2</span>遇刺，是否使用解药？</p>
+			<div class="img-clock-horizon img-clock-witch-save">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
+			<button class="player-choose-btn player-choose-btn-left">使用</button>
+			<button class="player-choose-btn player-choose-btn-right">不使用</button>
 		</div>
 		<!--女巫毒人框-->
 		<div class="player-select-section" name="player-witch-poison-section" style="display:none;">
+			<p>女巫，今晚你要毒死谁？</p>
+			<div class="player-select-list-poison">
+				<button class="player-select-btn player-select-1">1</button>
+				<button class="player-select-btn player-select-2">2</button>
+				<button class="player-select-btn player-select-3">3</button>
+				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
+				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
+				<button class="player-select-btn player-select-6">6</button>
+				<button class="player-select-btn player-select-7">7</button>
+				<button class="player-select-btn player-select-8">8</button>
+				<button class="player-select-btn player-select-9">9</button>
+			</div>
+			<div class="img-clock-vertical img-clock-poison">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
 		</div>
 		<!--投票选择框-->
 		<div class="player-select-section" name="player-vote-section" style="display:none;">
+			<p>今天，你要投票处决哪位玩家？</p>
+			<div class="player-select-list-vote">
+				<button class="player-select-btn player-select-1">1</button>
+				<button class="player-select-btn player-select-2">2</button>
+				<button class="player-select-btn player-select-3">3</button>
+				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
+				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
+				<button class="player-select-btn player-select-6">6</button>
+				<button class="player-select-btn player-select-7">7</button>
+				<button class="player-select-btn player-select-8">8</button>
+				<button class="player-select-btn player-select-9">9</button>
+			</div>
+			<div class="img-clock-vertical img-clock-vote">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
 		</div>
 		<!--无关人等框-->
 		<div class="player-select-section" name="player-unrelated-section" style="display:none;">
+			<p>现在是<span class="player-action-info">狼人</span>行动时间</p>
+			<div class="img-clock-horizon img-clock-witch-unrelated">
+				<img src="vendor/img/gameroom/clock.png" />
+				<span>2:20</span>
+			</div>
 		</div>
 	</div>
 </div>
