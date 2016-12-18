@@ -440,7 +440,7 @@
     width: 25%;
     left: 60%;
 }
-.img-clock {
+.img-clock-horizon {
 	position: absolute;
 	width: 30%;
     height: 24%;
@@ -449,16 +449,170 @@
 	left: 58%;
     bottom: 3%;
 }
-.img-clock img{
+.img-clock-wolf {
+	left: 80%;
+	bottom: 30%;
+}
+.img-clock-horizon img{
 	position: absolute;
     width: 40%;
     left: 0%;
     top: 0%;
 }
-.img-clock span {
+.img-clock-horizon span {
     left: 50%;
     top: 8%;
     position: absolute;
     font-size: 25px;
     font-family: "楷体","楷体_GB2312";
+}
+.img-clock-vertical {
+	position: absolute;
+	width: 18%;
+    height: 33%;
+}
+.img-clock-vertical img {
+	position: absolute;
+    width: 53%;
+    height: 55%;
+    display: block;
+    margin-left: 26%;
+}
+.img-clock-vertical span {
+	position: absolute;
+    left: 21%;
+    bottom: 0%;
+    font-size: 23px;
+}
+.player-select-info {
+	border-radius: 15px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #54e6f3;
+    background-color: #54e6f3;
+    position: relative;
+    font-size: 20px;
+    color: #2958a2;
+    margin: -2px 2px 0px 2px;
+    display: inline-block;
+}
+.player-select-list-predictor {
+	position: absolute;
+    margin-left: 4%;
+    margin-top: 2%;
+    width: 37%;
+    height: 70%;
+}
+.player-select-1-wolf {
+	left: 0;
+	top: 0;
+}
+.player-select-2-wolf {
+	left: 65%;
+	top: 0;
+}
+.player-select-3-wolf {
+	left: 130%;
+	top: 0;
+}
+.player-select-4-wolf {
+	left: 0;
+	top: 35%;
+}
+.player-select-5-wolf {
+	left: 65%;
+	top: 35%;
+}
+.player-select-6-wolf {
+	left: 130%;
+	top: 35%;
+}
+.player-select-7-wolf {
+	left: 0;
+	top: 70%;
+}
+.player-select-8-wolf {
+	left: 65%;
+	top: 70%;
+}
+.player-select-9-wolf {
+	left: 130%;
+	top: 70%;
+}
+.player-vote2kill {
+	position: absolute;
+	width: 20%;
+	transform: rotate(-45deg);
+}
+.player-vote2kill-1-1 {
+	left: 28%;
+    top: 7%;
+}
+.player-vote2kill-1-2 {
+	left: 45%;
+    top: 7%;
+}
+.player-vote2kill-2-1 {
+    left: 94%;
+    top: 7%;
+}
+.player-vote2kill-2-2 {
+    left: 110%;
+    top: 7%;
+}
+.player-vote2kill-3-1 {
+    left: 159%;
+    top: 7%;
+}
+.player-vote2kill-3-2 {
+    left: 177%;
+    top: 7%;
+}
+.player-vote2kill-4-1 {
+	left: 28%;
+    top: 42%;
+}
+.player-vote2kill-4-2 {
+	left: 45%;
+    top: 42%;
+}
+.player-vote2kill-5-1 {
+    left: 94%;
+    top: 42%;
+}
+.player-vote2kill-5-2 {
+    left: 110%;
+    top: 42%;
+}
+.player-vote2kill-6-1 {
+    left: 159%;
+    top: 42%;
+}
+.player-vote2kill-6-2 {
+    left: 177%;
+    top: 42%;
+}
+.player-vote2kill-7-1 {
+	left: 28%;
+    top: 77%;
+}
+.player-vote2kill-7-2 {
+	left: 45%;
+    top: 77%;
+}
+.player-vote2kill-8-1 {
+    left: 94%;
+    top: 77%;
+}
+.player-vote2kill-8-2 {
+    left: 110%;
+    top: 77%;
+}
+.player-vote2kill-9-1 {
+    left: 159%;
+    top: 77%;
+}
+.player-vote2kill-9-2 {
+    left: 177%;
+    top: 77%;
 }
