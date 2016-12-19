@@ -110,11 +110,12 @@ function room_object() {
     this.getPeriod = function () {return period;};
 
     //每个阶段的等待时间(s)
-    var guard_time = 10;
-    var werewolf_time = 15;
-    var witch_rescue_time = 10;
-    var witch_poison_time = 10;
-    var prophet_time = 10;
+    var guard_time = 15;
+    var werewolf_time = 20;
+    var witch_rescue_time = 15;
+    var witch_poison_time = 15;
+    var prophet_time = 15;
+    var prophet_check_time = 5;
     var last_words_time = 20;
     var discuss_time = 20;
     var vote_time = 20;
@@ -295,6 +296,13 @@ function room_object() {
     }
 
     function end_prophet() {
+        start_prophet_check(prophet_check_time);
+    }
+
+    function start_prophet_check(wait_time) {
+        period = 'prophet_check';
+        var who = get_userId_by_role(prophet_role);
+        send_period('prophet_check', wait_time, who);
         //给预言家发送是否为好人
         var targetData = user.getUserData(target.prophet_target);
         var is_goodman = true;
@@ -311,6 +319,10 @@ function room_object() {
                 user.sendJson(userId[k], 'is_user_goodman', data);
             }
         }
+        setTimeout(end_prophet_check, wait_time * second);
+    }
+
+    function end_prophet_check() {
         //进入天亮
         get_dark(false);
     }
@@ -442,8 +454,14 @@ function room_object() {
 
         target.citizen_choose = {};
         target.citizen_target = -1;
-
-        send_period('vote', vote_time);
+        var who = [];
+        userId.forEach(function (id) {
+            var usrData = user.getUserData(id);
+            if(usrData.isDead == false) {
+                who.push(id);
+            }
+        });
+        send_period('vote', vote_time, who);
 
         setTimeout(end_vote, vote_time * second);
     }

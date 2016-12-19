@@ -41,6 +41,7 @@ module.exports = {
             }
             //发身份牌
             var roles = get_roles();
+            // roles[0] = 2; //钦定身份，测试用
             var userId = room.getRoomUserId(room_id);
             var index = 0;
             for(var k in userId) {

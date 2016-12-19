@@ -1,54 +1,58 @@
 <link rel="stylesheet" href="vendor/css/room.css">
 <link rel="stylesheet" href="vendor/css/global.css">
 <script type="text/javascript" src="vendor/js/global.js"></script>
-<script type="text/javascript" src="vendor/js/game.js"></script>
+<!--<script type="text/javascript" src="vendor/js/game.js"></script>-->
 
 <!--进入房间界面-->
-<div id="screen" class="enter-screen" style="display:none">
+<div id="screen" class="enter-screen" ng-if="prepare.show">
 	<img class="enter-bg" src="vendor/img/gameroom/enter-bg.png" />
 	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
 	<div class="enter-message-box">
-		<p>欢迎，大佬进入房间{{roomnumber}}</p>
-		<p>当前房间人数：{{usernumber}}/9</p>
-		<img ng-show="complete" ng-click="startGame()" class="enter-startbtn" src="vendor/img/gameroom/start-btn.png"/>
+		<p>欢迎，{{prepare.username}}进入房间{{prepare.roomnumber}}</p>
+		<p>当前房间人数：{{prepare.usernumber}}/9</p>
+		<img ng-show="prepare.ready" ng-click="startGame()" class="enter-startbtn" src="vendor/img/gameroom/start-btn.png"/>
 	</div>
 </div>
 
 <!--游戏界面-->
-<div id="screen" class="game-screen">
+<div id="screen" class="game-screen" ng-if="game.show">
 	<img class="game-bg" src="vendor/img/gameroom/game-bg.png" />
 	<img class="id" src="vendor/img/gameroom/id.png" />
 	<img class="lyingman-icon" src="vendor/img/lyingman.png" />
-	<img class="player-card" src="vendor/img/gameroom/cards/wolf.png" >
+	<img class="player-card" src="vendor/img/gameroom/cards/villager.png" ng-if="game.role == 1">
+	<img class="player-card" src="vendor/img/gameroom/cards/wolf.png" ng-if="game.role == 2">
+	<img class="player-card" src="vendor/img/gameroom/cards/predictor.png" ng-if="game.role == 3">
+	<img class="player-card" src="vendor/img/gameroom/cards/witch.png" ng-if="game.role == 4">
+	<img class="player-card" src="vendor/img/gameroom/cards/guard.png" ng-if="game.role == 5">
 	<div class="table-section">
 		<!--显示每个人的昵称-->
 		<div class="player-name-section">
 			<div class="player-name-1">
-				<p>xiaoming</p>
+				<p>{{users[1].name}}</p>
 			</div>
 			<div class="player-name-2">
-				<p>lu</p>
+				<p>{{users[2].name}}</p>
 			</div>
 			<div class="player-name-3">
-				<p>xixi</p>
+				<p>{{users[3].name}}</p>
 			</div>
 			<div class="player-name-4">
-				<p>zhuge</p>
+				<p>{{users[4].name}}</p>
 			</div>
 			<div class="player-name-5">
-				<p>cyx</p>
+				<p>{{users[5].name}}</p>
 			</div>
 			<div class="player-name-6">
-				<p>lhy</p>
+				<p>{{users[6].name}}</p>
 			</div>
 			<div class="player-name-7">
-				<p>nvwang</p>
+				<p>{{users[7].name}}</p>
 			</div>
 			<div class="player-name-8">
-				<p>erjing</p>
+				<p>{{users[8].name}}</p>
 			</div>
 			<div class="player-name-9">
-				<p>bowen</p>
+				<p>{{users[9].name}}</p>
 			</div>
 		</div>
 		<!--显示每个人的数字编号-->
@@ -65,221 +69,216 @@
 		</div>
 		<!--显示每个人的存活状态-->
 		<div class="player-death-section">
-			<img class="player-death-1" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-2" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-3" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-4" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-5" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-6" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-7" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-8" src="vendor/img/gameroom/claw.png" />
-			<img class="player-death-9" src="vendor/img/gameroom/claw.png" />
+			<img class="player-death-1" src="vendor/img/gameroom/claw.png" ng-show="users[1].isDead"/>
+			<img class="player-death-2" src="vendor/img/gameroom/claw.png" ng-show="users[2].isDead" />
+			<img class="player-death-3" src="vendor/img/gameroom/claw.png" ng-show="users[3].isDead" />
+			<img class="player-death-4" src="vendor/img/gameroom/claw.png" ng-show="users[4].isDead" />
+			<img class="player-death-5" src="vendor/img/gameroom/claw.png" ng-show="users[5].isDead" />
+			<img class="player-death-6" src="vendor/img/gameroom/claw.png" ng-show="users[6].isDead" />
+			<img class="player-death-7" src="vendor/img/gameroom/claw.png" ng-show="users[7].isDead" />
+			<img class="player-death-8" src="vendor/img/gameroom/claw.png" ng-show="users[8].isDead" />
+			<img class="player-death-9" src="vendor/img/gameroom/claw.png" ng-show="users[9].isDead" />
 		</div>
 		<!--显示每个人的对话框-->
 		<div class="player-dialog-section">
-			<div class="player-dialog-1">
+			<div class="player-dialog-1" ng-show="users[1].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					5号是狼人
+					{{users[1].message}}
 				</div>
 			</div>
-			<div class="player-dialog-2">
+			<div class="player-dialog-2" ng-show="users[2].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[2].message}}
 				</div>
 			</div>
-			<div class="player-dialog-3">
+			<div class="player-dialog-3" ng-show="users[3].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[3].message}}
 				</div>
 			</div>
-			<div class="player-dialog-4">
+			<div class="player-dialog-4" ng-show="users[4].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[4].message}}
 				</div>
 			</div>
-			<div class="player-dialog-5">
+			<div class="player-dialog-5" ng-show="users[5].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[5].message}}
 				</div>
 			</div>
-			<div class="player-dialog-6">
+			<div class="player-dialog-6" ng-show="users[6].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[6].message}}
 				</div>
 			</div>
-			<div class="player-dialog-7">
+			<div class="player-dialog-7" ng-show="users[7].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[7].message}}
 				</div>
 			</div>
-			<div class="player-dialog-8">
+			<div class="player-dialog-8" ng-show="users[8].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[8].message}}
 				</div>
 			</div>
-			<div class="player-dialog-9">
+			<div class="player-dialog-9" ng-show="users[9].isChat">
 				<div class="player-dialog">
 					<span class="bot"></span>
 					<span class="top"></span>
-					2号查杀，5号金水，今天全票出2
+					{{users[9].message}}
 				</div>
 			</div>
 		</div>
 		<!--右下角打字输入框-->
-		<div class="player-chat-section" style="display:none;">
+		<div class="player-chat-section" ng-show="game.chatShow">
 			<form>
-				<textarea class="player-chat-text">123123</textarea>
-				<button class="player-chat-btn">发送</button>
+				<textarea class="player-chat-text" ng-model="$parent.message" placeholder="您要说的话"></textarea>
+				<button class="player-chat-btn" ng-click="sendMSG()">发送</button>
 			</form>
 		</div>
 		<!--预言家选择框-->
-		<div class="player-select-section" name="player-predictor-section" style="display:none;">
+		<div class="player-select-section" name="player-predictor-section" ng-show="game.prophetShow">
 			<p>预言家，今晚你要查验谁的身份？</p>
 			<div class="player-select-list-predictor">
-				<button class="player-select-btn player-select-1">1</button>
-				<button class="player-select-btn player-select-2">2</button>
-				<button class="player-select-btn player-select-3">3</button>
-				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
-				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
-				<button class="player-select-btn player-select-6">6</button>
-				<button class="player-select-btn player-select-7">7</button>
-				<button class="player-select-btn player-select-8">8</button>
-				<button class="player-select-btn player-select-9">9</button>
+				<div ng-repeat="i in seats">
+					<button class="player-select-btn player-select-{{i}}" ng-if="!users[i].isChoose && !users[i].isDead" ng-click="chooseTarget(i)">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-selected" ng-if="users[i].isChoose">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-disabled" ng-if="users[i].isDead">{{i}}</button>
+				</div>
 			</div>
-			<img class="img-identity" src="vendor/img/gameroom/goodman.png" />
-			<img class="img-identity" src="vendor/img/gameroom/badman.png" style="display:none;" />
+			<img class="img-identity" src="vendor/img/gameroom/goodman.png" ng-show="game.goodManShow"/>
+			<img class="img-identity" src="vendor/img/gameroom/badman.png" ng-show="game.badManShow" />
 			<div class="img-clock-horizon img-clock-predictor">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 		<!--狼人选择框-->
-		<div class="player-select-section" name="player-wolf-section" style="display:none;">
-			<p>狼人<span class="player-select-info">1</span><span class="player-select-info">2</span><span class="player-select-info">3</span>今晚要杀死谁？</p>
+		<div class="player-select-section" name="player-wolf-section" ng-show="game.wolfShow">
+			<p>狼人<span ng-repeat="wolf in game.wolfs" class="player-select-info">{{wolf}}</span>今晚要杀死谁？</p>
 			<div class="player-select-list-wolf">
-				<button class="player-select-btn player-select-1-wolf">1</button>
-				<button class="player-select-btn player-select-2-wolf">2</button>
-				<button class="player-select-btn player-select-3-wolf">3</button>
-				<button class="player-select-btn player-select-4-wolf player-select-btn player-select-selected">4</button>
-				<button class="player-select-btn player-select-5-wolf player-select-btn player-select-disabled">5</button>
-				<button class="player-select-btn player-select-6-wolf">6</button>
-				<button class="player-select-btn player-select-7-wolf">7</button>
-				<button class="player-select-btn player-select-8-wolf">8</button>
-				<button class="player-select-btn player-select-9-wolf">9</button>
-				<img class="player-vote2kill player-vote2kill-1-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-1-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-2-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-2-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-3-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-3-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-4-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-4-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-5-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-5-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-6-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-6-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-7-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-7-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-8-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-8-2" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-9-1" src="vendor/img/gameroom/claw.png" />
-				<img class="player-vote2kill player-vote2kill-9-2" src="vendor/img/gameroom/claw.png" />
+				<div ng-repeat="i in seats">
+					<button class="player-select-btn player-select-{{i}}-wolf" ng-if="!users[i].isChoose && !users[i].isDead" ng-click="chooseTarget(i)">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}}-wolf player-select-selected" ng-if="users[i].isChoose">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}}-wolf player-select-disabled" ng-if="users[i].isDead">{{i}}</button>
+				</div>
+				<div ng-repeat="i in game.wolfChoose1">
+					<img class="player-vote2kill player-vote2kill-{{i}}-1" src="vendor/img/gameroom/claw.png" />
+				</div>
+				<div ng-repeat="i in game.wolfChoose2">
+					<img class="player-vote2kill player-vote2kill-{{i}}-2" src="vendor/img/gameroom/claw.png" />
+				</div>
+				<!--<img class="player-vote2kill player-vote2kill-1-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-1-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-2-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-2-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-3-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-3-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-4-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-4-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-5-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-5-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-6-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-6-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-7-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-7-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-8-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-8-2" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-9-1" src="vendor/img/gameroom/claw.png" />-->
+				<!--<img class="player-vote2kill player-vote2kill-9-2" src="vendor/img/gameroom/claw.png" />-->
 			</div>
 			
 			<div class="img-clock-vertical img-clock-wolf">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 		<!--守卫选择框-->
-		<div class="player-select-section" name="player-guard-section"  style="display:none;">
+		<div class="player-select-section" name="player-guard-section"  ng-show="game.guardShow">
 			<p>守卫，今晚你要守护哪位玩家？</p>
 			<div class="player-select-list-guard">
-				<button class="player-select-btn player-select-1">1</button>
-				<button class="player-select-btn player-select-2">2</button>
-				<button class="player-select-btn player-select-3">3</button>
-				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
-				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
-				<button class="player-select-btn player-select-6">6</button>
-				<button class="player-select-btn player-select-7">7</button>
-				<button class="player-select-btn player-select-8">8</button>
-				<button class="player-select-btn player-select-9">9</button>
+				<!--<button class="player-select-btn player-select-1" ng-click="chooseTarget(1)" ng-if="!users[1].isChoose && !users[1].isDead">1</button>-->
+				<!--<button class="player-select-btn player-select-1 player-select-selected" ng-if="users[1].isChoose">1</button>-->
+				<!--<button class="player-select-btn player-select-1 player-select-disabled" ng-if="users[1].isDead">1</button>-->
+				<!--<button class="player-select-btn player-select-2" ng-click="chooseTarget(2)" ng-if="!users[2].isChoose && !users[2].isDead">2</button>-->
+				<!--<button class="player-select-btn player-select-2 player-select-selected" ng-if="users[2].isChoose">2</button>-->
+				<!--<button class="player-select-btn player-select-2 player-select-disabled" ng-if="users[2].isDead">2</button>-->
+				<!--<button class="player-select-btn player-select-3" ng-click="chooseTarget(3)" ng-if="!users[3].isChoose && !users[3].isDead">3</button>-->
+				<!--<button class="player-select-btn player-select-3 player-select-selected" ng-if="users[3].isChoose">3</button>-->
+				<!--<button class="player-select-btn player-select-3 player-select-disabled" ng-if="users[3].isDead">3</button>-->
+				<div ng-repeat="i in seats">
+					<button class="player-select-btn player-select-{{i}}" ng-click="chooseTarget(i)" ng-if="!users[i].isChoose && !users[i].isDead">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-selected" ng-if="users[i].isChoose">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-disabled" ng-if="users[i].isDead">{{i}}</button>
+				</div>
 			</div>
 			<div class="img-clock-vertical img-clock-guard">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 		<!--女巫救人框-->
-		<div class="player-select-section" name="player-witch-save-section">
-			<p>女巫，今晚<span class="player-select-info">2</span>遇刺，是否使用解药？</p>
+		<div class="player-select-section" name="player-witch-save-section" ng-show="game.witchRescueShow">
+			<p>女巫，今晚<span class="player-select-info">{{game.lockSeatId}}</span>遇刺，是否使用解药？</p>
 			<div class="img-clock-horizon img-clock-witch-save">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
-			<button class="player-choose-btn player-choose-btn-left">使用</button>
-			<button class="player-choose-btn player-choose-btn-right">不使用</button>
+			<button class="player-choose-btn player-choose-btn-left" ng-click="chooseFunction(true)">使用</button>
+			<button class="player-choose-btn player-choose-btn-right" ng-click="chooseFunction(false)">不使用</button>
 		</div>
 		<!--女巫毒人框-->
-		<div class="player-select-section" name="player-witch-poison-section" style="display:none;">
+		<div class="player-select-section" name="player-witch-poison-section" ng-show="game.witchPoisonShow">
 			<p>女巫，今晚你要毒死谁？</p>
 			<div class="player-select-list-poison">
-				<button class="player-select-btn player-select-1">1</button>
-				<button class="player-select-btn player-select-2">2</button>
-				<button class="player-select-btn player-select-3">3</button>
-				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
-				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
-				<button class="player-select-btn player-select-6">6</button>
-				<button class="player-select-btn player-select-7">7</button>
-				<button class="player-select-btn player-select-8">8</button>
-				<button class="player-select-btn player-select-9">9</button>
+				<div ng-repeat="i in seats">
+					<button class="player-select-btn player-select-{{i}}" ng-click="chooseTarget(i)" ng-if="!users[i].isChoose && !users[i].isDead">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-selected" ng-if="users[i].isChoose">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-disabled" ng-if="users[i].isDead">{{i}}</button>
+				</div>
 			</div>
 			<div class="img-clock-vertical img-clock-poison">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 		<!--投票选择框-->
-		<div class="player-select-section" name="player-vote-section" style="display:none;">
+		<div class="player-select-section" name="player-vote-section" ng-show="game.voteShow">
 			<p>今天，你要投票处决哪位玩家？</p>
 			<div class="player-select-list-vote">
-				<button class="player-select-btn player-select-1">1</button>
-				<button class="player-select-btn player-select-2">2</button>
-				<button class="player-select-btn player-select-3">3</button>
-				<button class="player-select-btn player-select-4 player-select-btn player-select-selected">4</button>
-				<button class="player-select-btn player-select-5 player-select-btn player-select-disabled">5</button>
-				<button class="player-select-btn player-select-6">6</button>
-				<button class="player-select-btn player-select-7">7</button>
-				<button class="player-select-btn player-select-8">8</button>
-				<button class="player-select-btn player-select-9">9</button>
+				<div ng-repeat="i in seats">
+					<button class="player-select-btn player-select-{{i}}" ng-if="!users[i].isChoose && !users[i].isDead" ng-click="chooseTarget(i)">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-selected" ng-if="users[i].isChoose">{{i}}</button>
+					<button class="player-select-btn player-select-{{i}} player-select-disabled" ng-if="users[i].isDead">{{i}}</button>
+				</div>
 			</div>
 			<div class="img-clock-vertical img-clock-vote">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 		<!--无关人等框-->
-		<div class="player-select-section" name="player-unrelated-section" style="display:none;">
-			<p>现在是<span class="player-action-info">狼人</span>行动时间</p>
+		<div class="player-select-section" name="player-unrelated-section" ng-show="game.waitShow">
+			<p>现在是<span class="player-action-info">{{game.periodInfo}}</span>阶段时间</p>
 			<div class="img-clock-horizon img-clock-witch-unrelated">
 				<img src="vendor/img/gameroom/clock.png" />
-				<span>2:20</span>
+				<span>{{game.time}}</span>
 			</div>
 		</div>
 	</div>

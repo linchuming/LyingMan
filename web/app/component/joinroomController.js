@@ -5,7 +5,7 @@
             if($scope.roomnumber>=1000 && $scope.roomnumber<=9999) {
                 userInfoModel.roomnumber = $scope.roomnumber;
                 if(userInfoModel.mode == 1) {
-                    $location.path("/enterroom");
+                    $location.path("/room");
                 } else {
                     $location.path("/offlineroom");
                 }
