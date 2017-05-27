@@ -2,7 +2,7 @@
 一款在线狼人杀游戏平台
 ### 运行
 - 安装[NodeJS v4.6.0](https://nodejs.org/en/)
-- 执行 `node server`
+- 在LyingMan目录下执行 `node server`
 - 浏览器浏览 `localhost:81`
 - 支持electron `electron web`
 
